@@ -1,0 +1,335 @@
+<template>
+  <div class="heading-page header-text">
+    <section class="page-heading">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="text-content">
+              <h4>Recent Information</h4>
+              <h2 id="cla">轉系生平台資訊 | 各學系轉系資訊</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <form id="searchForm" method="POST">
+    <select name="faculty" id="collegeSelect">
+      <option value="">選擇學院</option>
+      <option value="文學院">文學院</option>
+      <option value="藝術學院">藝術學院</option>
+      <option value="傳播學院">傳播學院</option>
+      <option value="醫學院">醫學院</option>
+      <option value="理工學院">理工學院</option>
+      <option value="外國語文學院">外國語文學院</option>
+      <option value="民生學院">民生學院</option>
+      <option value="法律學院">法律學院</option>
+      <option value="社會科學院">社會科學院</option>
+      <option value="管理學院">管理學院</option>
+      <option value="織品服裝學院">織品服裝學院</option>
+    </select>
+
+    <select name="year" id="gradeSelect">
+      <option value="">選擇有名額的年級</option>
+      <option value="second_year_quota">二年級</option>
+      <option value="third_year_quota">三年級</option>
+      <option value="fourth_year_quota">四年級</option>
+    </select>
+    <select id="test">
+      <option value="">選擇方式</option>
+      <option value="1">只有筆試</option>
+      <option value="2">只有口試</option>
+      <option value="3">只有資料審查</option>
+      <option value="4">筆試&口試</option>
+      <option value="5">筆試&資料審查</option>
+      <option value="6">口試&資料審查</option>
+      <option value="7">筆試&口試&資料審查</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="輸入關鍵字" />
+    <button type="submit">搜尋</button>
+  </form>
+
+  <!-- Banner Ends Here -->
+
+  <section class="about-us">
+    <div class="card-container">
+      <div class="card">
+        <section tabindex="-1" class="jkb">
+          <h3>文學院</h3>
+          <div class="link-list" id="cehs">
+            <a
+              v-for="departments in getDepartmentsByCollege('文學院')"
+              :key="departments.id"
+            >
+              <router-link :to="'/DeptDetail/' + departments.department_id">
+                {{ departments.name }}
+              </router-link>
+            </a>
+          </div>
+        </section>
+      </div>
+      <div class="card">
+        <section tabindex="-1" class="jkb">
+          <h3>藝術學院</h3>
+          <div class="link-list" id="med">
+            <a
+              v-for="departments in getDepartmentsByCollege('藝術學院')"
+              :key="departments.id"
+            >
+              <router-link :to="'/DeptDetail/' + departments.department_id">
+                {{ departments.name }}
+              </router-link>
+            </a>
+          </div>
+        </section>
+      </div>
+      <div class="card">
+        <section tabindex="-1" class="jkb">
+          <h3>傳播學院</h3>
+          <div class="link-list" id="cse">
+            <a
+              v-for="departments in getDepartmentsByCollege('傳播學院')"
+              :key="departments.id"
+            >
+              <router-link :to="'/DeptDetail/' + departments.department_id">
+                {{ departments.name }}
+              </router-link>
+            </a>
+          </div>
+        </section>
+      </div>
+      
+      <div class="card" style="height:500px">
+        <section id="med" tabindex="-1" class="jkb">
+          <h3>醫學院</h3>
+          <div class="link-list" id="che">
+            <a
+              v-for="departments in getDepartmentsByCollege('醫學院')"
+              :key="departments.id"
+            >
+              <router-link :to="'/DeptDetail/' + departments.department_id">
+                {{ departments.name }}
+              </router-link>
+            </a>
+          </div>
+        </section>
+      </div>
+      <div class="card" style="height:500px">
+        <section id="cse" tabindex="-1" class="jkb">
+          <h3>理工學院</h3>
+          <div class="link-list" id="law">
+            <a
+              v-for="departments in getDepartmentsByCollege('理工學院')"
+              :key="departments.id"
+            >
+              <router-link :to="'/DeptDetail/' + departments.department_id">
+                {{ departments.name }}
+              </router-link>
+            </a>
+          </div>
+        </section>
+      </div>
+      <div class="card" style="height:500px">
+        <section id="cfll" tabindex="-1" class="jkb">
+          <h3>外國語文學院</h3>
+          <div class="link-list" id="css">
+            <a
+              v-for="departments in getDepartmentsByCollege('外國語文學院')"
+              :key="departments.id"
+            >
+              <router-link :to="'/DeptDetail/' + departments.department_id">
+                {{ departments.name }}
+              </router-link>
+            </a>
+          </div>
+        </section>
+      </div>
+      <div class="card" style="height:350px">
+        <section id="che" tabindex="-1" class="jkb">
+          <h3>民生學院</h3>
+          <div class="link-list" id="com">
+            <a
+              v-for="departments in getDepartmentsByCollege('民生學院')"
+              :key="departments.id"
+            >
+              <router-link :to="'/DeptDetail/' + departments.department_id">
+                {{ departments.name }}
+              </router-link>
+            </a>
+          </div>
+        </section>
+      </div>
+      <div class="card" style="height:350px">
+        <section id="law" tabindex="-1" class="jkb">
+          <h3>法律學院</h3>
+          <div class="link-list" id="ctc">
+            <a
+              v-for="departments in getDepartmentsByCollege('法律學院')"
+              :key="departments.id"
+            >
+              <router-link :to="'/DeptDetail/' + departments.department_id">
+                {{ departments.name }}
+              </router-link>
+            </a>
+          </div>
+        </section>
+      </div>
+      <div class="card" style="height:350px">
+        <section id="css" tabindex="-1" class="jkb">
+          <h3>社會科學院</h3>
+          <div class="link-list">
+            <a
+              v-for="departments in getDepartmentsByCollege('社會科學院')"
+              :key="departments.id"
+            >
+              <router-link :to="'/DeptDetail/' + departments.department_id">
+                {{ departments.name }}
+              </router-link>
+            </a>
+          </div>
+        </section>
+      </div>
+      <div class="card">
+        <section id="com" tabindex="-1" class="jkb">
+          <h3>管理學院</h3>
+          <div class="link-list">
+            <a
+              v-for="departments in getDepartmentsByCollege('管理學院')"
+              :key="departments.id"
+            >
+              <router-link :to="'/DeptDetail/' + departments.department_id">
+                {{ departments.name }}
+              </router-link>
+            </a>
+          </div>
+        </section>
+      </div>
+      <div class="card">
+        <section id="ctc" tabindex="-1" class="jkb">
+          <h3>織品服裝學院</h3>
+          <div class="link-list">
+            <a
+              v-for="departments in getDepartmentsByCollege('織品服裝學院')"
+              :key="departments.id"
+            >
+              <router-link :to="'/DeptDetail/' + departments.department_id">
+                {{ departments.name }}
+              </router-link>
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <ul class="social-icons">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Behance</a></li>
+            <li><a href="#">Linkedin</a></li>
+            <li><a href="#">Dribbble</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-12">
+          <div class="copyright-text">
+            <p>
+              Copyright 2020 Stand Blog Co. | Design:
+              <a rel="nofollow" href="https://templatemo.com" target="_parent"
+                >TemplateMo</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</template>
+
+<script>
+import "../assets/css/fontawesome.css";
+import "../assets/css/templatemo-stand-blog.css";
+import "../assets/css/owl.css";
+
+export default {
+  data() {
+    return {
+      departments: []
+    };
+  },
+  mounted() {
+
+    require("../assets/js/custom.js");
+    require("../assets/js/owl.js");
+    require("../assets/js/slick.js");
+    require("../assets/js/isotope.js");
+    require("../assets/js/accordions.js");
+
+    this.scrollToSection();
+    fetch("http://localhost/SA/department_all.php")
+      .then(response => response.json())
+      .then(data => {
+        console.log("後端資料:", data);
+        this.departments = data; // 確保獲取到正確的資料
+      })
+      .catch(error => console.error("錯誤:", error));
+  },
+  watch: {
+    "$route.query.scrollTo": function () {
+      this.scrollToSection();
+    },
+  },
+  methods: {
+    // 根據學院名稱過濾學系
+    getDepartmentsByCollege(collegeName) {
+      return this.departments.filter(d => d.faculty === collegeName);
+    },
+    scrollToSection() {
+      const sectionId = this.$route.query.scrollTo;
+      if (sectionId) {
+        this.$nextTick(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" }); // 平滑滾動
+          }
+        });
+      }
+    },
+  },
+};
+</script>
+
+
+<script setup>
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+
+onMounted(() => {
+  console.log("🔎 當前 URL 參數：", route.query.scrollTo);
+
+  // 延遲 500ms 確保 DOM 生成完畢
+  setTimeout(() => {
+    if (route.query.scrollTo) {
+      const targetElement = document.getElementById(route.query.scrollTo);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      } else {
+        console.warn("⚠️ 找不到 ID：" + route.query.scrollTo);
+      }
+    }
+  }, 500);
+});
+</script>
+
+
+<style scoped>
+
+.card h3 {
+  font-size: 30px;
+}
+</style>
