@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="text-content">
-              <h4>Recent Information</h4>
+              <h4>Fu Jen Catholic University</h4>
               <h2>輔大轉系生資訊平台</h2>
             </div>
           </div>
@@ -178,12 +178,14 @@
                 <div class="meta-category">
                   <span>消息</span>
                 </div>
-                <a href="相關公告.html"><h4>轉系相關公告</h4></a>
-                <ul class="post-info">
-                  <li><a href="#">Admin</a></li>
-                  <li><a href="#">May 18, 2020</a></li>
-                  <li><a href="#">48 Comments</a></li>
-                </ul>
+                <router-link to="/LatestAnn">
+                  <a href="相關公告.html"><h4>轉系相關公告</h4></a>
+                  <ul class="post-info">
+                    <li><a href="#">114轉系公告公文</a></li>
+                    <li><a href="#">轉系公告公文</a></li>
+                    <li><a href="#">轉系辦法</a></li>
+                  </ul>
+                </router-link>
               </div>
             </div>
           </div>
@@ -196,15 +198,6 @@
   <footer>
     <div class="container">
       <div class="row">
-        <div class="col-lg-12">
-          <ul class="social-icons">
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Behance</a></li>
-            <li><a href="#">Linkedin</a></li>
-            <li><a href="#">Dribbble</a></li>
-          </ul>
-        </div>
         <div class="col-lg-12">
           <div class="copyright-text">
             <p>
@@ -247,6 +240,8 @@
 import "../assets/css/fontawesome.css";
 import "../assets/css/templatemo-stand-blog.css";
 import "../assets/css/owl.css";
+import "../assets/css/flex-slider.css";
+
 
 export default {
   name: "HelloWorld",
@@ -284,5 +279,8 @@ export default {
 <style scoped>
 .owl-carousel .item {
   margin: 10px;
+}
+.cards_1 {
+  text-align: left !important;
 }
 </style>

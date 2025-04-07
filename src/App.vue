@@ -1,24 +1,15 @@
 <template>
-
   <NavBar/>
   <router-view />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import NavBar from './components/NavBar.vue'
-import DeptAll from './components/DeptAll.vue'
-import DeptDetail from './components/DeptDetail.vue'
-import LatestAnn from './components/LatestAnn.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
     NavBar,
-    DeptAll,
-    DeptDetail,
-    LatestAnn,
   },
 }
   

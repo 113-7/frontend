@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="text-content">
-              <h4>Recent Information</h4>
+              <h4>Fu Jen Catholic University</h4>
               <h2 id="cla">輔大轉系生資訊平台 | 各學系轉系資訊</h2>
             </div>
           </div>
@@ -226,21 +226,10 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <ul class="social-icons">
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Behance</a></li>
-            <li><a href="#">Linkedin</a></li>
-            <li><a href="#">Dribbble</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-12">
           <div class="copyright-text">
             <p>
-              Copyright 2020 Stand Blog Co. | Design:
-              <a rel="nofollow" href="https://templatemo.com" target="_parent"
-                >TemplateMo</a
-              >
+              242062 新北市新莊區中正路510號 | (02) 29052000 |
+              pubwww@mail.fju.edu.tw
             </p>
           </div>
         </div>

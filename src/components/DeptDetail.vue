@@ -5,9 +5,8 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="text-content">
-              <h4>Recent Information</h4>
+              <h4>Fu Jen Catholic University</h4>
               <h2>輔大轉系生資訊平台 | 各學系轉系資訊</h2>
-              <br />
               <h2>{{ detail[0]?.name }}</h2>
             </div>
           </div>
@@ -21,6 +20,14 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
+          <h2 style="font-size: 30px; margin-top: -30px;">
+            <b>{{ detail[0]?.name }}</b>
+          </h2>
+          <p></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
           <h2><b>114年轉系資訊</b></h2>
           <p>
             輔仁大學 114
@@ -28,16 +35,6 @@
           </p>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-lg-12">
-          <h2 style="font-size: 30px; margin-top: 30px">
-            <b>{{ detail[0]?.name }}</b>
-          </h2>
-          <p></p>
-        </div>
-      </div>
-
       <div class="row">
         <div class="col-lg-4 col-md-6">
           <h2>學院</h2>
@@ -94,7 +91,7 @@
             style="font-size: 20px"
             v-if="detail[0] && detail[0].written_exam_weight !== '0'"
           >
-            有
+            有/{{ detail[0]?.written_exam_weight }}%
           </p>
           <p style="font-size: 20px" v-else>無</p>
         </div>
@@ -104,7 +101,7 @@
             style="font-size: 20px"
             v-if="detail[0] && detail[0].interview_weight !== '0'"
           >
-            有
+            有/{{ detail[0]?.interview_weight }}%
           </p>
           <p style="font-size: 20px" v-else>無</p>
         </div>
@@ -114,7 +111,7 @@
             style="font-size: 20px"
             v-if="detail[0] && detail[0].review_weight !== '0'"
           >
-            有
+            有/{{ detail[0]?.review_weight }}%
           </p>
           <p style="font-size: 20px" v-else>無</p>
         </div>
@@ -132,7 +129,7 @@
               width: 60%;
             "
           >
-            簡述:{{ detail[0]?.brief_description }}<br><br>
+            簡述:{{ detail[0]?.brief_description }}<br /><br />
             {{ detail[0]?.additional_notes }}
           </p>
         </div>
@@ -144,17 +141,10 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <ul class="social-icons">
-            <li><a href="#">天主教輔仁大學</a></li>
-            <li><a href="#">242062 新北市新莊區中正路510號</a></li>
-            <li><a href="#">(02) 29052000</a></li>
-            <li><a href="#">pubwww@mail.fju.edu.tw</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-12">
           <div class="copyright-text">
             <p>
-              | 天主教輔仁大學 © 2014-2022 版權所有，建議使用IE8.0以上瀏覽器瀏覽
+              242062 新北市新莊區中正路510號 | (02) 29052000 |
+              pubwww@mail.fju.edu.tw
             </p>
           </div>
         </div>
@@ -212,10 +202,9 @@ export default {
 }
 .col-lg-12 {
   width: 100%;
-  height: 150px;
   box-sizing: border-box;
 }
 .notes-text {
-  white-space: pre-line; /* 保留文本中的换行符 */
+  white-space: pre-line; /* 保留換行符號 */
 }
 </style>

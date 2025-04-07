@@ -22,7 +22,9 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="相關公告.html">相關公告</a>
+              <router-link to="/LatestAnn">
+                <a class="nav-link" href="相關公告.html">相關公告</a>
+              </router-link>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="申請.html">申請</a>
@@ -50,7 +52,10 @@ export default {
 li {
   display: inline-block;
 }
-.collapse{
-    margin-left: 600px;
+.collapse {
+  margin-left: 700px;
+}
+.navbar-brand {
+  margin-left: 50px;
 }
 </style>
