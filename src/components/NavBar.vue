@@ -1,5 +1,5 @@
 <template>
-  <header class="">
+  <header>
     <nav class="navbar navbar-expand-lg">
       <div class="container">
         <a class="navbar-brand" href="首頁.html"
@@ -27,13 +27,19 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="申請.html">申請</a>
+              <router-link to="/ApplyPaper">
+                <a class="nav-link" href="申請.html">申請</a>
+              </router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Q&A.html">Q&A</a>
+              <router-link to="/QandA">
+                <a class="nav-link" href="Q&A.html">Q&A</a>
+              </router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="登入.html">登入</a>
+              <router-link to="/LogIn">
+                <a class="nav-link" href="登入.html">登入</a>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -49,7 +55,10 @@ export default {
 </script>
 
 <style scoped>
-li {
+.nav {
+  margin-top: -40px;
+}
+/*li {
   display: inline-block;
 }
 .collapse {
@@ -57,5 +66,5 @@ li {
 }
 .navbar-brand {
   margin-left: 50px;
-}
+}*/
 </style>

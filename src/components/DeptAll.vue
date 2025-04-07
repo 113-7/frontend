@@ -258,6 +258,7 @@ export default {
     require("../assets/js/accordions.js");
 
     this.scrollToSection();
+    
     fetch("http://localhost/SA/department_all.php")
       .then(response => response.json())
       .then(data => {
@@ -317,7 +318,9 @@ onMounted(() => {
 
 
 <style scoped>
-
+.card{
+  border-radius:20px;
+}
 .card h3 {
   font-size: 30px;
 }

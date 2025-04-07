@@ -19,7 +19,7 @@
   </div>
 
   <div>
-    <h2 class="text_tt">本校各學院</h2>
+    <h2 class="text_tt" style="text-align: center;">本校各學院</h2>
   </div>
   <!--  item --------------------------------------------->
   <div class="academy_container">
@@ -241,6 +241,8 @@ import "../assets/css/fontawesome.css";
 import "../assets/css/templatemo-stand-blog.css";
 import "../assets/css/owl.css";
 import "../assets/css/flex-slider.css";
+
+import "../vendor/bootstrap/css/bootstrap.min.css";
 
 
 export default {
