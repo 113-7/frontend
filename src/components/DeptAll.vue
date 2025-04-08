@@ -322,6 +322,6 @@ onMounted(() => {
   border-radius:20px;
 }
 .card h3 {
-  font-size: 30px;
+  font-size: 31px;
 }
 </style>
