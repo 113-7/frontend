@@ -99,7 +99,7 @@
         </section>
       </div>
       
-      <div class="card" style="height:500px">
+      <div class="card" style="height:520px">
         <section id="med" tabindex="-1" class="jkb">
           <h3>醫學院</h3>
           <div class="link-list" id="che">
@@ -114,7 +114,7 @@
           </div>
         </section>
       </div>
-      <div class="card" style="height:500px">
+      <div class="card" style="height:520px">
         <section id="cse" tabindex="-1" class="jkb">
           <h3>理工學院</h3>
           <div class="link-list" id="law">
@@ -129,7 +129,7 @@
           </div>
         </section>
       </div>
-      <div class="card" style="height:500px">
+      <div class="card" style="height:520px">
         <section id="cfll" tabindex="-1" class="jkb">
           <h3>外國語文學院</h3>
           <div class="link-list" id="css">

@@ -24,7 +24,13 @@ const routes = [
   
   const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+      // 每次切換路由都滾動到最上方
+      return { top: 0 }
+    }
+    
   });
+  
   
   export default router;
