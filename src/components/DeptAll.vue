@@ -1,3 +1,4 @@
+
 <template>
   <div class="heading-page header-text">
     <section class="page-heading">
@@ -13,42 +14,8 @@
       </div>
     </section>
   </div>
-  <form id="searchForm" method="POST">
-    <select name="faculty" id="collegeSelect">
-      <option value="">選擇學院</option>
-      <option value="文學院">文學院</option>
-      <option value="藝術學院">藝術學院</option>
-      <option value="傳播學院">傳播學院</option>
-      <option value="醫學院">醫學院</option>
-      <option value="理工學院">理工學院</option>
-      <option value="外國語文學院">外國語文學院</option>
-      <option value="民生學院">民生學院</option>
-      <option value="法律學院">法律學院</option>
-      <option value="社會科學院">社會科學院</option>
-      <option value="管理學院">管理學院</option>
-      <option value="織品服裝學院">織品服裝學院</option>
-    </select>
 
-    <select name="year" id="gradeSelect">
-      <option value="">選擇有名額的年級</option>
-      <option value="second_year_quota">二年級</option>
-      <option value="third_year_quota">三年級</option>
-      <option value="fourth_year_quota">四年級</option>
-    </select>
-    <select id="test">
-      <option value="">選擇方式</option>
-      <option value="1">只有筆試</option>
-      <option value="2">只有口試</option>
-      <option value="3">只有資料審查</option>
-      <option value="4">筆試&口試</option>
-      <option value="5">筆試&資料審查</option>
-      <option value="6">口試&資料審查</option>
-      <option value="7">筆試&口試&資料審查</option>
-    </select>
-    <input type="text" id="searchInput" placeholder="輸入關鍵字" />
-    <button type="submit">搜尋</button>
-  </form>
-
+  <SearchBar :departments="departments" />
   <!-- Banner Ends Here -->
 
   <section class="about-us">
@@ -242,8 +209,14 @@
 import "../assets/css/fontawesome.css";
 import "../assets/css/templatemo-stand-blog.css";
 import "../assets/css/owl.css";
+import SearchBar from '../components/SearchBar.vue'
+
+
 
 export default {
+  components: {
+    SearchBar // ✅ 把搜尋欄元件加進來
+  },
   data() {
     return {
       departments: []
