@@ -106,6 +106,18 @@
             </div>
           </div>
         </div>
+        <div class="col-lg-12">
+          <div id="map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.9336837935034!2d121.43126543533164!3d25.03632451626951!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a7dd8be91eaf%3A0xe342a67d6574f896!2z5aSp5Li75pWZ6LyU5LuB5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1743391021521!5m2!1szh-TW!2stw"
+              width="100%"
+              height="450px"
+              frameborder="0"
+              style="border: 0"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -164,7 +176,7 @@ export default {
           console.log("Result:", result);
           if (result.status === "success") {
             alert("登入成功！");
-            window.location.href = "/";
+            window.location.href = "/UserProfile"; // Redirect to the user profile page
           } else {
             alert("登入失敗：" + result.message);
           }

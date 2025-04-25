@@ -1,16 +1,10 @@
-<script setup>
-import { inject } from "vue";
-
-const session = inject("session");
-</script>
-
 <template>
   <header>
     <nav class="navbar navbar-expand-lg container-fluid">
       <div class="container">
-        <a class="navbar-brand" href="首頁.html">
+        <router-link to="/" class="navbar-brand">
           <h2>轉系生平台<em>.</em></h2>
-        </a>
+        </router-link>
 
         <!-- 新增響應式按鈕 -->
         <button
@@ -29,41 +23,56 @@ const session = inject("session");
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <router-link to="/" @click="closeNavbar">
-                <a class="nav-link">
-                  首頁
-                  <span class="sr-only"></span>
-                </a>
+              <router-link to="/" @click="closeNavbar" class="nav-link">
+                首頁
+                <span class="sr-only"></span>
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/DeptAll" @click="closeNavbar">
-                <a class="nav-link" href="各學系資訊.html">各學系資訊</a>
+              <router-link to="/DeptAll" @click="closeNavbar" class="nav-link">
+                各學系資訊
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/LatestAnn" @click="closeNavbar">
-                <a class="nav-link" href="相關公告.html">相關公告</a>
+              <router-link
+                to="/LatestAnn"
+                @click="closeNavbar"
+                class="nav-link"
+              >
+                相關公告
+              </router-link>
+            </li>
+            <li class="nav-item" v-if="session">
+              <router-link
+                to="/ApplyPaper"
+                @click="closeNavbar"
+                class="nav-link"
+              >
+                申請
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/ApplyPaper" @click="closeNavbar">
-                <a class="nav-link" href="申請.html">申請</a>
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/QandA" @click="closeNavbar">
-                <a class="nav-link" href="Q&A.html">Q&A</a>
+              <router-link to="/QandA" @click="closeNavbar" class="nav-link">
+                Q&A
               </router-link>
             </li>
             <li class="nav-item" v-if="!session">
-              <router-link to="/LogIn" class="nav-link" @click="closeNavbar">登入</router-link>
+              <router-link to="/LogIn" class="nav-link" @click="closeNavbar"
+                >登入</router-link
+              >
             </li>
             <li class="nav-item" v-else>
-              <router-link to="/UserProfile" class="nav-link" @click="closeNavbar">個人資料</router-link>
+              <router-link
+                to="/UserProfile"
+                class="nav-link"
+                @click="closeNavbar"
+                >個人資料</router-link
+              >
             </li>
             <li class="nav-item" v-if="session">
-              <a href="#" class="nav-link" @click.prevent="logout" @click="closeNavbar">登出</a>
+              <a href="#" class="nav-link" @click.prevent="handleLogout"
+                >登出</a
+              >
             </li>
           </ul>
         </div>
@@ -72,26 +81,74 @@ const session = inject("session");
   </header>
 </template>
 
-<script>
+<script setup>
+import { inject } from "vue";
+import { useRouter } from "vue-router";
+import { onMounted, onBeforeUnmount } from "vue";
 
-export default {
-  name: "Navbar",
-  methods: {
-  closeNavbar() {
-    const el = document.getElementById("navbarResponsive");
-    const collapse = bootstrap.Collapse.getInstance(el);
-    if (collapse) {
-      collapse.hide();
-    }
+const session = inject("session");
+const router = useRouter();
+
+//關閉選單方法
+const closeNavbar = () => {
+  const el = document.getElementById("navbarResponsive");
+  const collapse = bootstrap.Collapse.getInstance(el);
+  if (collapse) {
+    collapse.hide();
   }
-}
 };
+
+const logout = async () => {
+  try {
+    const response = await fetch("/api/SA/logout.php", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    const data = await response.json();
+    if (data.status === "success") {
+      session.value = null; // 清除登入狀態
+      alert("登出成功！");
+      router.push("/LogIn");
+    } else {
+      console.error("後端登出失敗");
+    }
+  } catch (err) {
+    console.error("登出錯誤:", err);
+  }
+};
+
+//按下按鈕後關閉選單
+const handleLogout = async () => {
+  await logout();
+  closeNavbar();
+};
+const handleOutsideClick = (event) => {
+  const navbar = document.getElementById("navbarResponsive");
+  const toggler = document.querySelector(".navbar-toggler");
+
+  if (
+    navbar.classList.contains("show") &&
+    !navbar.contains(event.target) &&
+    !toggler.contains(event.target)
+  ) {
+    closeNavbar();
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("click", handleOutsideClick);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener("click", handleOutsideClick);
+});
 </script>
 
 <style scoped>
-.nav {
+/*.nav {
   margin-top: -40px;
-}
+}*/
 /*li {
   display: inline-block;
 }

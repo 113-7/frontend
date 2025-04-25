@@ -85,36 +85,40 @@
 </template>
 
 <script setup>
-import { inject, onMounted, ref, computed } from "vue";
+import { inject, onMounted, ref, compute, watch } from "vue";
 
 // 假設 session 正確注入
 const session = inject("session");
+console.log("session:",session.value); // 這裡會印出學號
 
 const userId = ref("");
 const enrollmentYear = ref("未知");
 const className = ref("未知");
 const seatNumber = ref("未知");
 
-onMounted(() => {
-  // 確保在組件加載後再進行計算
-  console.log("session:", session._value); // 使用 session.value 來訪問 ref 中的值
+const updateUserData = () => {
   if (session.value?.user_id) {
-    // 訪問 user_id 時也要使用 session.value
-    const userIdString = String(session.value.user_id); // 確保轉換為字串
-    enrollmentYear.value = `1${userIdString.slice(1, 3)}`; // 計算入學年份
+    const userIdString = String(session.value.user_id);
+    enrollmentYear.value = `1${userIdString.slice(1, 3)}`;
     className.value =
       userIdString.charAt(5) == "1"
         ? "甲班"
         : userIdString.charAt(5) == "2"
         ? "乙班"
         : "未知";
-    seatNumber.value = userIdString.slice(7, 9); // 計算座號
+    seatNumber.value = userIdString.slice(7, 9);
   }
+};
+
+// 第一次掛載時也執行一次（如果 session 已經有值）
+onMounted(() => {
+  updateUserData();
 });
 
-const enrollmentYearComputed = computed(() => enrollmentYear.value);
-const classNameComputed = computed(() => className.value);
-const seatNumberComputed = computed(() => seatNumber.value);
+// 如果 session 是後來才被注入或載入，這樣可以重新計算
+watch(session, () => {
+  updateUserData();
+});
 </script>
 
 
