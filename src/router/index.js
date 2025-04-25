@@ -10,6 +10,7 @@ import LatestAnn from '@/components/LatestAnn.vue'
 import LogIn from '@/components/LogIn.vue'
 import ApplyPaper from '@/components/ApplyPaper.vue'
 import QandA from '@/components/QandA.vue'
+import UserProfile from '@/components/UserProfile.vue'
 
 const routes = [
     { path: '/', component: HelloWorld },
@@ -20,6 +21,7 @@ const routes = [
     { path: '/LogIn', component: LogIn },
     { path: '/ApplyPaper', component: ApplyPaper },
     { path: '/QandA', component: QandA },
+    { path: '/UserProfile', component: UserProfile },
   ];
   
   const router = createRouter({

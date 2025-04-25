@@ -24,7 +24,6 @@ export default {
       try {
         const response = await fetch('/api/SA/get_session.php');
         const data = await response.json();
-        console.log('回傳資料:', data); 
 
         if (data.status === 'success') {
           session.value = data.session;

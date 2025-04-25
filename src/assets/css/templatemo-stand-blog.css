@@ -1154,3 +1154,276 @@ footer p a:hover {
 	background-color: #0056b3;
   }
   
+
+  /* spring 2新增 -----------------------------------------------*/
+
+
+
+
+
+/* 申請 */
+.cont1 {
+	display: flex;
+	justify-content: center;
+	margin-top: 100px;
+  }
+  
+  .boxbox {
+	border: 2px solid #ccc;
+	border-radius: 20px;
+	padding: 60px 150px;
+	text-align: center;
+	background-color: #f9f9f9;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  
+  button {
+	margin-top: 20px;
+	border-radius: 3px;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	background-color: #f48840;
+  }
+  
+  .modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+  }
+  
+  .modal-content {
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 15px;
+	width: 750px;
+	height: 600px;
+	max-height: 80vh; /* 限制最大高度為畫面的80% */
+	overflow-y: auto; /* 超過就可以垂直滾動 */
+	position: relative;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  
+  .modal-content h3 {
+	margin-top: 0;
+  }
+  
+  .modal-content label {
+	display: block;
+	margin-top: 10px;
+  }
+  
+  .modal-content input[type=\"text\"],
+  .modal-content textarea,
+  .modal-content input[type=\"file\"] {
+	width: 80%;
+	margin-top: 5px;
+	padding: 8px;
+	box-sizing: border-box;
+  }
+  
+  .modal-content button[type="submit"] {
+	display: block;
+	margin: 20px auto;
+	margin-top: 15px;
+	background-color: #f48840;
+ }
+  
+
+  
+  .close {
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	font-size: 24px;
+	cursor: pointer;
+  }
+  
+  .hidden {
+	display: none;
+  }
+  
+
+  select {
+	padding: 8px;
+	border-radius: 5px;
+	width: 100%;
+	margin-top: 5px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+/* 更新資訊頁面 */
+
+  .cont2 {
+	width: 80%;
+	margin: 50px auto;
+	padding: 30px;
+	background-color: #f9f9f9;
+	border-radius: 20px;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  }
+
+  table {
+	width: 100%;
+	border-collapse: collapse;
+  }
+
+  th, td {
+	padding: 16px;
+	border-bottom: 1px solid #ddd;
+	text-align: left;
+  }
+
+  .edit-btn {
+	padding: 6px 12px;
+	background-color: #f48840;
+	border: none;
+	color: white;
+	border-radius: 5px;
+	cursor: pointer;
+	display: block;
+	transition: box-shadow 0.2s ease;
+  }
+  .edit-btn:hover {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+
+  .modal2 {
+	position: fixed;
+	top: 0; left: 0;
+	width: 100%; height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: none;
+	justify-content: center;
+	align-items: center;
+  }
+
+  .modal2-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background: #fff;
+	padding: 30px;
+	border-radius: 15px;
+	width: 750px;
+	height: 450px; 
+  }
+
+  .modal2-content input {
+	width: 100%;
+	padding: 8px;
+	margin: 10px 0;
+  }
+
+  .submit-btn {
+	margin-top: 30px;
+	display: block;
+	padding: 12px 24px;
+	background-color: #f48840;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: box-shadow 0.2s ease;
+	margin: 10px auto;
+  }
+  .submit-btn:hover {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+
+
+
+
+/* 使用者登入 */
+
+
+  .info-wrapper {
+	background-color: #ffffff;
+	width: 800px;
+	margin: 100px auto;
+	border: 1px solid #ddd;
+	border-radius: 9px;
+	padding: 30px 25px;
+	box-sizing: border-box;
+  }
+  
+  .info-wrapper h2 {
+	font-size: 22px;
+	color: #333;
+	text-align: center;
+	margin-bottom: 30px;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 15px;
+  }
+  
+  .info-line {
+	display: flex;
+	justify-content: space-between;
+	padding: 12px 0;
+	font-size: 17px;
+	border-bottom: 1px dashed #e0e0e0;
+  }
+  
+  .info-label {
+	color: #888;
+	font-weight: bold;
+	letter-spacing: 1px;
+	margin-left: 80px;
+  }
+  
+  .info-value {
+	color: #333;
+	font-weight: 500;
+	text-align: center;
+	display: block;    
+	width: 60%; 
+  }
+  
+  .buttonchange {
+	display: block;
+	background-color: #f48840;
+	color: #fff;
+	border: none;
+	padding: 20px 50px;
+	border-radius: 5px;
+	cursor: pointer;
+  	transition: box-shadow 0.2s ease;
+  	margin: 5px auto;
+	font-size: 20px;
+  }
+  
+  .buttonchange:hover {	
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+
+  
+
+
+  
+
+
+/* 新增---------------------------------------------------------- */
