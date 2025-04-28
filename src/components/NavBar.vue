@@ -22,7 +22,7 @@
         <!-- 將導航項目包裹在 collapse 中 -->
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
               <router-link to="/" @click="closeNavbar" class="nav-link">
                 首頁
                 <span class="sr-only"></span>
@@ -66,8 +66,11 @@
                 to="/UserProfile"
                 class="nav-link"
                 @click="closeNavbar"
-                >個人資料</router-link
-              >
+                >
+                <div v-if="session.role==='student'">個人資料
+                </div>
+                <div v-else>管理學系</div>
+                  </router-link>
             </li>
             <li class="nav-item" v-if="session">
               <a href="#" class="nav-link" @click.prevent="handleLogout"
