@@ -19,7 +19,7 @@
   </div>
 
   <div>
-    <h2 class="text_tt" style="text-align: center;">本校各學院</h2>
+    <h2 class="text_tt" style="text-align: center">本校各學院</h2>
   </div>
   <!--  item --------------------------------------------->
   <div class="academy_container">
@@ -123,72 +123,81 @@
     <div class="main-banner header-text">
       <div class="container-fluid">
         <div class="owl-banner owl-carousel">
-          <div class="item">
-            <img src="../assets/images/focus1095.jpg" alt="" />
-            <div class="item-content">
-              <div class="main-content">
-                <div class="meta-category">
-                  <span>114年</span>
-                </div>
-                <a href="各學系資訊.html"><h4>各學系轉系資訊</h4></a>
-                <ul class="post-info">
-                  <li><a href="#">Admin</a></li>
-                  <li><a href="#">May 12, 2020</a></li>
-                  <li><a href="#">12 Comments</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="../assets/images/focus1.jpg" alt="" />
-            <div class="item-content">
-              <div class="main-content">
-                <div class="meta-category">
-                  <span>114年</span>
-                </div>
-                <a href="申請.html"><h4>轉系申請資料</h4></a>
-                <ul class="post-info">
-                  <li><a href="#">Admin</a></li>
-                  <li><a href="#">May 14, 2020</a></li>
-                  <li><a href="#">24 Comments</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="../assets/images/focus03.jpg" alt="" />
-            <div class="item-content">
-              <div class="main-content">
-                <div class="meta-category">
-                  <span>消息</span>
-                </div>
-                <a href="Q&A.html"><h4>轉系資訊Q&A</h4></a>
-                <ul class="post-info">
-                  <li><a href="#">Admin</a></li>
-                  <li><a href="#">May 16, 2020</a></li>
-                  <li><a href="#">36 Comments</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="../assets/images/focus02.jpg" alt="" />
-            <div class="item-content">
-              <div class="main-content">
-                <div class="meta-category">
-                  <span>消息</span>
-                </div>
-                <router-link to="/LatestAnn">
-                  <a href="相關公告.html"><h4>轉系相關公告</h4></a>
+          <router-link to="/DeptAll">
+            <div class="item">
+              <img src="../assets/images/focus1095.jpg" alt="" />
+
+              <div class="item-content">
+                <div class="main-content">
+                  <div class="meta-category">
+                    <span>114年</span>
+                  </div>
+                  <a href="各學系資訊.html"><h4>各學系轉系資訊</h4></a>
                   <ul class="post-info">
-                    <li><a href="#">114轉系公告公文</a></li>
-                    <li><a href="#">轉系公告公文</a></li>
-                    <li><a href="#">轉系辦法</a></li>
+                    <li><a href="#">查看資訊</a></li>
+                    <li><a href="#">搜尋資訊</a></li>
+                    <li><a href="#">轉系條件</a></li>
                   </ul>
-                </router-link>
+                </div>
               </div>
             </div>
-          </div>
+          </router-link>
+          <router-link to="/ApplyPaper">
+            <div class="item">
+              <img src="../assets/images/focus1.jpg" alt="" />
+              <div class="item-content">
+                <div class="main-content">
+                  <div class="meta-category">
+                    <span>114年</span>
+                  </div>
+                  <a href="申請.html"><h4>轉系申請</h4></a>
+                  <ul class="post-info">
+                    <li><a href="#">文件下載</a></li>
+                    <li><a href="#">文件繳交</a></li>
+                    <li><a href="#">前往察看</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </router-link>
+          <router-link to="/QandA">
+            <div class="item">
+              <img src="../assets/images/focus03.jpg" alt="" />
+              <div class="item-content">
+                <div class="main-content">
+                  <div class="meta-category">
+                    <span>消息</span>
+                  </div>
+                  <a href="Q&A.html"><h4>轉系資訊Q&A</h4></a>
+                  <ul class="post-info">
+                    <li><a href="#">常見問題</a></li>
+                    <li><a href="#">相關討論</a></li>
+                    <li><a href="#">查詢文章</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </router-link>
+          <router-link to="/LatestAnn">
+            <div class="item">
+              <img src="../assets/images/focus02.jpg" alt="" />
+              <div class="item-content">
+                <div class="main-content">
+                  <div class="meta-category">
+                    <span>消息</span>
+                  </div>
+                  <router-link to="/LatestAnn">
+                    <a href="相關公告.html"><h4>轉系相關公告</h4></a>
+                    <ul class="post-info">
+                      <li><a href="#">114年</a></li>
+                      <li><a href="#">轉系公告公文</a></li>
+                      <li><a href="#">轉系辦法</a></li>
+                    </ul>
+                  </router-link>
+                </div>
+              </div>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -243,7 +252,6 @@ import "../assets/css/owl.css";
 import "../assets/css/flex-slider.css";
 
 import "../vendor/bootstrap/css/bootstrap.min.css";
-
 
 export default {
   name: "HelloWorld",

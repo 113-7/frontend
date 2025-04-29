@@ -42,7 +42,8 @@
                 相關公告
               </router-link>
             </li>
-            <li class="nav-item" v-if="session">
+
+            <li class="nav-item" v-if="session && session.role === 'student'">
               <router-link
                 to="/ApplyPaper"
                 @click="closeNavbar"
@@ -51,6 +52,7 @@
                 申請
               </router-link>
             </li>
+
             <li class="nav-item">
               <router-link to="/QandA" @click="closeNavbar" class="nav-link">
                 Q&A
@@ -66,11 +68,10 @@
                 to="/UserProfile"
                 class="nav-link"
                 @click="closeNavbar"
-                >
-                <div v-if="session.role==='student'">個人資料
-                </div>
+              >
+                <div v-if="session.role === 'student'">個人資料</div>
                 <div v-else>管理學系</div>
-                  </router-link>
+              </router-link>
             </li>
             <li class="nav-item" v-if="session">
               <a href="#" class="nav-link" @click.prevent="handleLogout"

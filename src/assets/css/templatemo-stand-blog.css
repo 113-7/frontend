@@ -1341,7 +1341,7 @@ select {
 /* 更新資訊頁面 */
 
 .cont2 {
-	width: 80%;
+	width: 100%;
 	margin: 50px auto;
 	padding: 30px;
 	background-color: #f9f9f9;

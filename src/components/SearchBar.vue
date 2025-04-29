@@ -3,7 +3,9 @@
     <div class="search-card">
       <select v-model="selectedCollege">
         <option value="">選擇學院</option>
-        <option v-for="college in allColleges" :key="college">{{ college }}</option>
+        <option v-for="college in allColleges" :key="college">
+          {{ college }}
+        </option>
       </select>
 
       <select v-model="selectedDept">
@@ -12,7 +14,7 @@
           v-for="dept in departmentsFilteredByCollege"
           :key="dept.department_id"
           :value="dept.name"
-         >
+        >
           {{ dept.name }}
         </option>
       </select>
@@ -21,29 +23,110 @@
         <option value="">選擇有名額的年級</option>
         <option value="second_year_quota">二年級</option>
         <option value="third_year_quota">三年級</option>
-        <option value="fourth_year_quota">四年級</option>
-        <option value="fourth_year_quota">四年級</option>
-      </select><br>
+        <option value="fourth_year_quota">四年級</option></select
+      ><br />
 
-    <div class="exam-and-keyword">
-      <div class="exam-options">
-        <label><input type="checkbox" value="筆試" v-model="selectedExam" /> 筆試</label>
-        <label><input type="checkbox" value="口試" v-model="selectedExam" /> 口試</label>
-        <label><input type="checkbox" value="資料審查" v-model="selectedExam" /> 資料審查</label>
+      <div class="exam-and-keyword">
+        <div class="exam-options">
+          <label
+            ><input type="checkbox" value="筆試" v-model="selectedExam" />
+            筆試</label
+          >
+          <label
+            ><input type="checkbox" value="口試" v-model="selectedExam" />
+            口試</label
+          >
+          <label
+            ><input type="checkbox" value="資料審查" v-model="selectedExam" />
+            資料審查</label
+          >
+        </div>
+
+        <input
+          type="text"
+          v-model="keyword"
+          placeholder="輸入關鍵字"
+          class="search-input"
+        />
+        <button class="submit-btn" @click="filterDepartments">搜尋</button>
       </div>
-
-      <input type="text" v-model="keyword" placeholder="輸入關鍵字" class="search-input" />
-      <button class="submit-btn" @click="filterDepartments">搜尋</button>
-    </div></div>
+    </div>
 
     <div class="result-list" v-if="filtered.length">
+      <!--原始搜尋結果
       <ul>
         <li v-for="dept in filtered" :key="dept.department_id">
-          <router-link :to="`/DeptDetail/${dept.department_id}`">{{ dept.name }}</router-link>
+          <router-link :to="`/DeptDetail/${dept.department_id}`">{{
+            dept.name
+          }}</router-link>
         </li>
-      </ul>
+      </ul>-->
+      <!--表格式搜尋結果-->
+      <section>
+        <div class="cont2">
+          <h2 style="text-align: center">查詢結果</h2>
+          <br />
+          <table style="width: 100%; border-collapse: collapse">
+            <thead>
+              <tr>
+                <th style="width: 8%">學院</th>
+                <th style="width: 10%">學系</th>
+                <th style="width: 8%">二年級名額</th>
+                <th style="width: 8%">三年級名額</th>
+                <th style="width: 8%">四年級名額</th>
+                <th style="width: 8%">筆試</th>
+                <th style="width: 8%">口試</th>
+                <th style="width: 10%">資料審查</th>
+                <th style="width: 32%">備註</th>
+              </tr>
+            </thead>
+            <tbody id="result-table">
+              <tr
+                v-for="dept in filtered"
+                :key="dept.department_id"
+                @click="goToDetail(dept.department_id)"
+                style="cursor: pointer"
+              >
+                <td>{{ dept.faculty }}</td>
+                <td>
+                  <b>{{ dept.name }}</b>
+                </td>
+                <td>{{ dept.second_year_quota }}人</td>
+                <td>{{ dept.third_year_quota }}人</td>
+                <td>{{ dept.fourth_year_quota }}人</td>
+                <td>
+                  {{ parseFloat(dept.written_exam_weight) > 0 ? "有" : "無" }}
+                </td>
+                <td>
+                  {{ parseFloat(dept.interview_weight) > 0 ? "有" : "無" }}
+                </td>
+                <td>{{ parseFloat(dept.review_weight) > 0 ? "有" : "無" }}</td>
+                <td>
+                  <div class="note-cell">
+                    <span class="clamp-text">{{ dept.additional_notes }}</span>
+                    <span
+                      v-if="isOverflow(dept.additional_notes)"
+                      class="more-link"
+                      @click.stop="showFullNote(dept.additional_notes)"
+                    >
+                      查看更多
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
-    <p v-else style="text-align: center; margin-top: 20px;">沒有符合的資料</p>
+    <div v-else style="text-align: center; margin-top: 20px">
+      <p
+        v-if="hasSearched && filtered.length === 0"
+        style="text-align: center; margin-top: 20px"
+      >
+        沒有符合的資料
+      </p>
+    </div>
   </div>
 </template>
 
@@ -53,52 +136,75 @@ export default {
   props: {
     departments: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       selectedCollege: "",
       selectedGrade: "",
-      selectedDept: '',
+      selectedDept: "",
       selectedExam: [],
       keyword: "",
-      filtered: []
+      filtered: [],
+      hasSearched: false,
     };
   },
   computed: {
-  allColleges() {
-    const set = new Set(this.departments.map(d => d.faculty));
-    return [...set];
+    allColleges() {
+      const set = new Set(this.departments.map((d) => d.faculty));
+      return [...set];
+    },
+    departmentsFilteredByCollege() {
+      if (!this.selectedCollege) return this.departments;
+      return this.departments.filter((d) => d.faculty === this.selectedCollege);
+    },
   },
-  departmentsFilteredByCollege() {
-    if (!this.selectedCollege) return this.departments;
-    return this.departments.filter(d => d.faculty === this.selectedCollege);
-  }
-}
-  
-  ,
+
   methods: {
     filterDepartments() {
-      this.filtered = this.departments.filter(dept => {
-        const matchesCollege = !this.selectedCollege || dept.faculty === this.selectedCollege;
-        const matchesGrade = !this.selectedGrade || parseInt(dept[this.selectedGrade]) > 0;
-        const matchesDept = !this.selectedDept || dept.name === this.selectedDept;
-
+      this.hasSearched = true;
+      this.filtered = this.departments.filter((dept) => {
+        const matchesCollege =
+          !this.selectedCollege || dept.faculty === this.selectedCollege;
+        const matchesGrade =
+          !this.selectedGrade || parseInt(dept[this.selectedGrade]) > 0;
+        const matchesDept =
+          !this.selectedDept || dept.name === this.selectedDept;
 
         const examTypes = [];
         if (parseFloat(dept.written_exam_weight) > 0) examTypes.push("筆試");
         if (parseFloat(dept.interview_weight) > 0) examTypes.push("口試");
         if (parseFloat(dept.review_weight) > 0) examTypes.push("資料審查");
 
-        const matchesExam = this.selectedExam.every(e => examTypes.includes(e));
-        const matchesKeyword = dept.name.includes(this.keyword.trim());
+        const matchesExam = this.selectedExam.every((e) =>
+          examTypes.includes(e)
+        );
+        const keyword = this.keyword.trim();
+        const matchesKeyword = Object.values(dept).some((value) =>
+          String(value).includes(keyword)
+        );
 
-        return matchesCollege && matchesGrade && matchesExam && matchesKeyword && matchesDept;
-
+        return (
+          matchesCollege &&
+          matchesGrade &&
+          matchesExam &&
+          matchesKeyword &&
+          matchesDept
+        );
       });
-    }
-  }
+    },
+    goToDetail(departmentId) {
+    this.$router.push(`/DeptDetail/${departmentId}`);
+  },
+    isOverflow(text) {
+      // 保守估算：中文每行大約 15 字
+      return text.length > 32;
+    },
+    showFullNote(text) {
+      alert(text); // 或用 Modal 顯示
+    },
+  },
 };
 </script>
 
@@ -119,8 +225,6 @@ export default {
   align-items: center;
 }
 
-
-
 .search-card select,
 .search-card input[type="text"] {
   padding: 10px;
@@ -128,7 +232,7 @@ export default {
   border-radius: 8px;
   border: 1px solid #ffffff;
   width: 220px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 .exam-options {
   display: flex;
@@ -155,7 +259,7 @@ export default {
   border-radius: 8px;
   border: 1px solid #ccc;
   width: 250px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .submit-btn {
@@ -189,5 +293,34 @@ export default {
 }
 .result-list a:hover {
   text-decoration: underline;
+}
+
+/*控制備註大小寬度跑查看更多的地方*/
+.note-cell {
+  position: relative;
+  max-width: 100%;
+  line-height: 1.5;
+}
+
+.clamp-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.more-link {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: white;
+  font-size: 14px;
+  color: rgb(236, 150, 12);
+  cursor: pointer;
+  padding-left: 4px;
+  font-weight: bold;
 }
 </style>
