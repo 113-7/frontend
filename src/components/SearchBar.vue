@@ -246,7 +246,17 @@ export default {
     },
     closeDeptTable() {
       this.filtered = [];
-      this.hasSearched=false;
+      this.selectedCollege = "";
+      this.selectedGrade = "";
+      this.selectedDept = "";
+      this.keyword = "";
+      this.examStates = {
+        written: "none",
+        oral: "none",
+        review: "none",
+      };
+      this.selectedExam = [];
+      this.hasSearched = false;
     },
   },
 };
