@@ -28,18 +28,33 @@
 
       <div class="exam-and-keyword">
         <div class="exam-options">
+          筆試
           <label
-            ><input type="checkbox" value="筆試" v-model="selectedExam" />
-            筆試</label
-          >
+            class="custom-checkbox"
+            :class="{
+              checked: examStates.written === 'yes',
+              crossed: examStates.written === 'no',
+            }"
+            @click="toggleState('written')"
+          ></label>
+          口試
           <label
-            ><input type="checkbox" value="口試" v-model="selectedExam" />
-            口試</label
-          >
+            class="custom-checkbox"
+            :class="{
+              checked: examStates.oral === 'yes',
+              crossed: examStates.oral === 'no',
+            }"
+            @click="toggleState('oral')"
+          ></label>
+          資料審查
           <label
-            ><input type="checkbox" value="資料審查" v-model="selectedExam" />
-            資料審查</label
-          >
+            class="custom-checkbox"
+            :class="{
+              checked: examStates.review === 'yes',
+              crossed: examStates.review === 'no',
+            }"
+            @click="toggleState('review')"
+          ></label>
         </div>
 
         <input
@@ -49,6 +64,9 @@
           class="search-input"
         />
         <button class="submit-btn" @click="filterDepartments">搜尋</button>
+        <button class="btn btn-warning" @click="closeDeptTable">
+          關閉搜尋欄
+        </button>
       </div>
     </div>
 
@@ -148,6 +166,11 @@ export default {
       keyword: "",
       filtered: [],
       hasSearched: false,
+      examStates: {
+        written: "none", // 'none' | 'yes' | 'no'
+        oral: "none",
+        review: "none",
+      },
     };
   },
   computed: {
@@ -162,6 +185,15 @@ export default {
   },
 
   methods: {
+    toggleState(type) {
+      if (this.examStates[type] === "none") {
+        this.examStates[type] = "yes";
+      } else if (this.examStates[type] === "yes") {
+        this.examStates[type] = "no";
+      } else {
+        this.examStates[type] = "none";
+      }
+    },
     filterDepartments() {
       this.hasSearched = true;
       this.filtered = this.departments.filter((dept) => {
@@ -172,14 +204,22 @@ export default {
         const matchesDept =
           !this.selectedDept || dept.name === this.selectedDept;
 
-        const examTypes = [];
-        if (parseFloat(dept.written_exam_weight) > 0) examTypes.push("筆試");
-        if (parseFloat(dept.interview_weight) > 0) examTypes.push("口試");
-        if (parseFloat(dept.review_weight) > 0) examTypes.push("資料審查");
+        const examCheck = {
+          written: parseFloat(dept.written_exam_weight) > 0,
+          oral: parseFloat(dept.interview_weight) > 0,
+          review: parseFloat(dept.review_weight) > 0,
+        };
 
-        const matchesExam = this.selectedExam.every((e) =>
-          examTypes.includes(e)
-        );
+        const matchesExam =
+          (this.examStates.written === "none" ||
+            (this.examStates.written === "yes" && examCheck.written) ||
+            (this.examStates.written === "no" && !examCheck.written)) &&
+          (this.examStates.oral === "none" ||
+            (this.examStates.oral === "yes" && examCheck.oral) ||
+            (this.examStates.oral === "no" && !examCheck.oral)) &&
+          (this.examStates.review === "none" ||
+            (this.examStates.review === "yes" && examCheck.review) ||
+            (this.examStates.review === "no" && !examCheck.review));
         const keyword = this.keyword.trim();
         const matchesKeyword = Object.values(dept).some((value) =>
           String(value).includes(keyword)
@@ -195,14 +235,18 @@ export default {
       });
     },
     goToDetail(departmentId) {
-    this.$router.push(`/DeptDetail/${departmentId}`);
-  },
+      this.$router.push(`/DeptDetail/${departmentId}`);
+    },
     isOverflow(text) {
       // 保守估算：中文每行大約 15 字
       return text.length > 32;
     },
     showFullNote(text) {
       alert(text); // 或用 Modal 顯示
+    },
+    closeDeptTable() {
+      this.filtered = [];
+      this.hasSearched=false;
     },
   },
 };
@@ -322,5 +366,39 @@ export default {
   cursor: pointer;
   padding-left: 4px;
   font-weight: bold;
+}
+.custom-checkbox {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 2px solid #ccc;
+  background-color: #f8f8f8;
+  color: transparent;
+  text-align: center;
+  line-height: 20px;
+  font-size: 20px;
+  transition: all 0.2s;
+  cursor: pointer;
+  margin-top: 2px;
+  margin-left: -5px;
+}
+
+/* ✔ */
+.custom-checkbox.checked {
+  background-color: #2ecc71;
+  color: white;
+}
+.custom-checkbox.checked::before {
+  content: "✔";
+}
+
+/* × */
+.custom-checkbox.crossed {
+  background-color: #e74c3c;
+  color: white;
+}
+.custom-checkbox.crossed::before {
+  content: "×";
 }
 </style>
