@@ -15,6 +15,7 @@ export default {
     NavBar,
     HelloWorld
   },
+  
   setup() {
     const session = ref(null);
 

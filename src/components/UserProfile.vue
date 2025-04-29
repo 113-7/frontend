@@ -88,7 +88,9 @@
 
       <h2 class="section-title">
         本系轉系資訊
-        <button type="button" class="btn btn-danger">更改本系轉系資訊</button>
+        <router-link to="/ChangeDept">
+          <button type="button" class="btn edit-btn">更改本系轉系資訊</button>
+        </router-link>
       </h2>
       <hr class="custom-hr2" />
       <div v-if="departmentData && departmentData.length > 0">
@@ -229,18 +231,23 @@ const updateUserData = () => {
 // 取得學系資料的函式
 const getDepartmentData = async () => {
   console.log("取得學系資料的函式被呼叫了");
+  if (!session.value) {
+    console.error("Session 未定義，無法取得學系資料");
+    return;
+  }
+
   console.log("session.value?.department_id:", session.value?.department_id);
   if (session.value?.department_id) {
     try {
       const response = await fetch(
-        `/api/SA/department_detail.php?id=${session.value?.department_id}`,
+        `/api/SA/department_detail.php?id=${session.value.department_id}`,
         {
           method: "GET",
         }
-      ); // 假設這是後端的 API 路徑
+      );
       if (response.ok) {
         const data = await response.json();
-        departmentData.value = data; // 假設返回的資料是學系的詳細資訊
+        departmentData.value = data;
         console.log("學系資料:", departmentData.value);
       } else {
         console.error("無法取得學系資料", response.status);
@@ -254,6 +261,7 @@ const getDepartmentData = async () => {
 };
 
 onMounted(() => {
+  console.log("Session 值:", session.value);
   updateUserData();
   getDepartmentData();
 });
@@ -291,5 +299,4 @@ watch(
   margin-left: auto;
   margin-right: auto;
 }
-
 </style>
