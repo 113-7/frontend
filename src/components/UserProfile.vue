@@ -94,6 +94,9 @@
         <router-link to="/ChangeDept">
           <button type="button" class="btn edit-btn">更改本系轉系資訊</button>
         </router-link>
+        <router-link to="/NewAnnoun">
+          <button type="button" class="btn edit-btn ml-1">新增本系轉系公告</button>
+        </router-link>
       </h2>
       <hr class="custom-hr2" />
       <div v-if="departmentData && departmentData.length > 0">

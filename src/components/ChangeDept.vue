@@ -8,7 +8,7 @@
               <h4>Recent Information</h4>
               <h2>轉系生平台資訊 | 更新學系轉系資訊</h2>
               <br />
-              <h2>文學院-中國文學系</h2>
+              <h2>{{departmentData.name}}</h2>
             </div>
           </div>
         </div>

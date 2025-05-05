@@ -20,6 +20,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
+            <router-link to="/AnnouncementList" class="btn btn-light backbutton" style="font-size: 24px;text-align: left ">←</router-link>
             <h2>
               <b>{{ announcement?.title }}</b>
             </h2>
@@ -89,3 +90,20 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.backbutton{
+  position: fixed;
+  top: 25%;       /* 距離畫面上方 20% */
+  left: 5%;       /* 距離畫面左側 5% */
+  font-size: 28px;
+  color: black;
+  background-color: white;
+  padding: 8px 12px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  z-index: 999;   /* 確保不會被其他元件遮住 */
+  transition: background-color 0.3s;
+}
+</style>

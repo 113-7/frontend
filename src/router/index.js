@@ -14,6 +14,7 @@ import UserProfile from '@/components/UserProfile.vue'
 import ChangeDept from '@/components/ChangeDept.vue'
 import AnnouncementList from '@/components/AnnouncementList.vue'
 import AnnouncementDetail from '@/components/AnnouncementDetail.vue'
+import NewAnnoun from '@/components/NewAnnoun.vue'
 
 
 
@@ -30,6 +31,7 @@ const routes = [
     { path: '/ChangeDept', component: ChangeDept },
     { path: '/AnnouncementList', component: AnnouncementList },
     { path: '/AnnouncementDetail/:id', component: AnnouncementDetail },
+    { path: '/NewAnnoun', component: NewAnnoun },
   ];
   
   const router = createRouter({

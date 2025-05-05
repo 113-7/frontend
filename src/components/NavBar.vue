@@ -35,7 +35,7 @@
             </li>
             <li class="nav-item">
               <router-link
-                to="/LatestAnn"
+                to="/AnnouncementList"
                 @click="closeNavbar"
                 class="nav-link"
               >
