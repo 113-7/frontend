@@ -16,7 +16,7 @@
 
   <!-- Banner Ends Here -->
   <div class="container">
-    <h2 class="text-center my-4">轉系申請時間線</h2>
+    <h2 class="text-center my-4"><b>114轉系申請時間線</b></h2>
     <ul class="timeline">
       <li class="timeline-item" data-date="2025-03-24">
         <div class="date">申請開始</div>
@@ -28,11 +28,11 @@
       </li>
       <li class="timeline-item" data-date="2025-03-27">
         <div class="date">筆試/面試開始</div>
-        <p>4月/請參閱各系公告</p>
+        <p>4月/請參閱各系公告和通知</p>
       </li>
-      <li class="timeline-item" data-date="2025-04-29">
+      <li class="timeline-item" data-date="2025-04-30">
         <div class="date">筆試/面試結束</div>
-        <p>4月/請參閱各系公告</p>
+        <p>4月/請參閱各系公告和通知</p>
       </li>
       <li class="timeline-item" data-date="2025-05-12">
         <div class="date">公告名單</div>
@@ -187,7 +187,7 @@ export default {
 }
 
 .timeline-item.completed .date {
-  background-color: green;
+  background-color: rgb(237, 146, 27);
   color: white;
 }
 

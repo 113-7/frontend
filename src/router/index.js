@@ -12,6 +12,10 @@ import ApplyPaper from '@/components/ApplyPaper.vue'
 import QandA from '@/components/QandA.vue'
 import UserProfile from '@/components/UserProfile.vue'
 import ChangeDept from '@/components/ChangeDept.vue'
+import AnnouncementList from '@/components/AnnouncementList.vue'
+import AnnouncementDetail from '@/components/AnnouncementDetail.vue'
+
+
 
 const routes = [
     { path: '/', component: HelloWorld },
@@ -24,6 +28,8 @@ const routes = [
     { path: '/QandA', component: QandA },
     { path: '/UserProfile', component: UserProfile },
     { path: '/ChangeDept', component: ChangeDept },
+    { path: '/AnnouncementList', component: AnnouncementList },
+    { path: '/AnnouncementDetail/:id', component: AnnouncementDetail },
   ];
   
   const router = createRouter({
