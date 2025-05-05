@@ -15,14 +15,35 @@
   </div>
 
   <!-- Banner Ends Here -->
+  <div class="container">
+    <h2 class="text-center my-4">轉系申請時間線</h2>
+    <ul class="timeline">
+      <li class="timeline-item" data-date="2025-03-24">
+        <div class="date">申請開始</div>
+        <p>3月24日 8:00 開始</p>
+      </li>
+      <li class="timeline-item" data-date="2025-03-26">
+        <div class="date">申請結束</div>
+        <p>3月26日 22:00 結束</p>
+      </li>
+      <li class="timeline-item" data-date="2025-03-27">
+        <div class="date">筆試/面試開始</div>
+        <p>4月/請參閱各系公告</p>
+      </li>
+      <li class="timeline-item" data-date="2025-04-29">
+        <div class="date">筆試/面試結束</div>
+        <p>4月/請參閱各系公告</p>
+      </li>
+      <li class="timeline-item" data-date="2025-05-12">
+        <div class="date">公告名單</div>
+        <p>5月12日 公告結果</p>
+      </li>
+    </ul>
+  </div>
 
   <section class="about-us">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <p>輔仁大學學校財團法人輔仁大學 公告</p>
-        </div>
-      </div>
+      
 
       <div class="row">
         <div class="col-lg-12">
@@ -101,5 +122,91 @@
 <script>
 export default {
   name: "LatestAnn",
+  mounted() {
+    this.updateTimelineStatus();
+  },
+  methods: {
+    updateTimelineStatus() {
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      const currentDate = new Date();
+
+      // 使用 requestAnimationFrame 來分散 DOM 操作，減少阻塞
+      const updateItemStatus = (index) => {
+        if (index >= timelineItems.length) return; // 防止越界
+
+        const item = timelineItems[index];
+        const itemDate = new Date(item.getAttribute('data-date'));
+
+        if (itemDate < currentDate) {
+          item.classList.add('completed');
+        } else if (itemDate > currentDate) {
+          item.classList.add('future');
+        } else {
+          item.classList.add('active');
+        }
+
+        // 使用 requestAnimationFrame 分散處理
+        requestAnimationFrame(() => updateItemStatus(index + 1));
+      };
+
+      // 開始處理
+      updateItemStatus(0);
+    }
+  }
 };
 </script>
+
+<style scoped>
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 20px 0;
+  margin: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.timeline-item {
+  width: 20%;
+  text-align: center;
+  position: relative;
+}
+
+.timeline-item .date {
+  background-color: #ccc;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.timeline-item.active .date {
+  background-color: #007bff;
+  color: white;
+}
+
+.timeline-item.completed .date {
+  background-color: green;
+  color: white;
+}
+
+.timeline-item.future .date {
+  background-color: grey;
+  color: white;
+}
+
+.timeline-item:before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  z-index: -1;
+}
+
+.timeline-item:first-child:before {
+  display: none;
+}
+</style>

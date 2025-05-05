@@ -15,7 +15,27 @@
   </div>
 
   <!-- Banner Ends Here -->
-
+    <section class="call-to-action">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="main-content">
+            <div class="row">
+              <div class="col-lg-8">
+                <span>Download</span>
+                <h4>轉系文件下載</h4>
+              </div>
+              <div class="col-lg-4">
+                <div class="main-button">
+                  <a href="/document/Course_transfer_application.doc" download>下載</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section class="call-to-action">
     <div class="container">
       <div class="row">
@@ -64,3 +84,9 @@
     </div>
   </footer>
 </template>
+
+<style scoped>
+.call-to-action{
+  margin-top: 50px;
+}
+</style>

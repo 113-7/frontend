@@ -32,7 +32,10 @@
                   session.department_name
                 }}</span>
               </div>
-
+              <div class="info-line">
+                <span class="info-label">年級</span>
+                <span class="info-value">{{ gradeNumber }}</span>
+              </div>
               <div class="info-line">
                 <span class="info-label">班級</span>
                 <span class="info-value">{{ className }}</span>
@@ -208,6 +211,7 @@ const isLogin = ref(false); // 🔥 這個用來控制畫面
 const enrollmentYear = ref("未知");
 const className = ref("未知");
 const seatNumber = ref("未知");
+const gradeNumber = ref("未知"); // 年級
 
 const updateUserData = () => {
   if (session?.value) {
@@ -222,6 +226,7 @@ const updateUserData = () => {
         ? "乙班"
         : "未知";
     seatNumber.value = userIdString.slice(7, 9);
+    gradeNumber.value = 14-userIdString.slice(1, 3); // 年級
   } else {
     console.log("❌ session 還是空的");
     isLogin.value = false; // 沒資料，標記未登入
