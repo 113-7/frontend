@@ -38,6 +38,9 @@
       </li>
     </ul>
   </div>
+  
+  <SimplifySearchBar :departments="departments" />
+
   <hr class="custom-hr2" />
   <div class="container mt-5 pt-5">
     <h2 class="text-center my-4"><b>📢 最新公告</b></h2>
@@ -83,10 +86,15 @@
 </template>
 
 <script>
+import SimplifySearchBar from "./SimplifySearchBar.vue";
 export default {
+  components: {
+    SimplifySearchBar
+  },
   data() {
     return {
       announcements: [],
+      departments: [],
     };
   },
   mounted() {
@@ -94,6 +102,9 @@ export default {
     fetch("/api/SA/announcements.php")
       .then((res) => res.json())
       .then((data) => (this.announcements = data));
+    fetch("/api/SA/departments.php") // 👈 新增這段來取得資料
+      .then((res) => res.json())
+      .then((data) => (this.departments = data));
   },
   methods: {
     formatDate(dateStr) {

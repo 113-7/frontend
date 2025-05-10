@@ -50,6 +50,32 @@
         </div>
       </section>
 
+      <div class="container">
+    <h2 class="text-center my-4"><b>114轉系申請時間線</b></h2>
+    <ul class="timeline">
+      <li class="timeline-item" data-date="2025-03-24">
+        <div class="date">申請開始</div>
+        <p>3月24日 8:00 開始</p>
+      </li>
+      <li class="timeline-item" data-date="2025-03-26">
+        <div class="date">申請結束</div>
+        <p>3月26日 22:00 結束</p>
+      </li>
+      <li class="timeline-item" data-date="2025-03-27">
+        <div class="date">筆試/面試開始</div>
+        <p>4月 請參閱各系公告和通知</p>
+      </li>
+      <li class="timeline-item" data-date="2025-04-30">
+        <div class="date">筆試/面試結束</div>
+        <p>4月 請參閱各系公告和通知</p>
+      </li>
+      <li class="timeline-item" data-date="2025-05-12">
+        <div class="date">公告名單</div>
+        <p>5月12日 公告結果</p>
+      </li>
+    </ul>
+  </div>
+
       <h2 class="section-title">申請轉系</h2>
       <hr class="custom-hr2" />
       <div class="container mt-4">

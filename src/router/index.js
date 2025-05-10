@@ -9,6 +9,7 @@ import DeptDetail from '@/components/DeptDetail.vue'
 import LatestAnn from '@/components/LatestAnn.vue'
 import LogIn from '@/components/LogIn.vue'
 import ApplyPaper from '@/components/ApplyPaper.vue'
+import StudentForum from '@/components/StudentForum.vue'
 import QandA from '@/components/QandA.vue'
 import UserProfile from '@/components/UserProfile.vue'
 import ChangeDept from '@/components/ChangeDept.vue'
@@ -26,6 +27,7 @@ const routes = [
     { path: '/LatestAnn', component: LatestAnn },
     { path: '/LogIn', component: LogIn },
     { path: '/ApplyPaper', component: ApplyPaper },
+    { path: '/StudentForum', component: StudentForum },
     { path: '/QandA', component: QandA },
     { path: '/UserProfile', component: UserProfile },
     { path: '/ChangeDept', component: ChangeDept },
