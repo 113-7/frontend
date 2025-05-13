@@ -125,7 +125,7 @@ const AddAnnouncement = async () => {
     body: JSON.stringify(announcement.value)
   });
 
-    //確認後端錯誤訊息用
+  //確認後端錯誤訊息用
   //const textResponse = await response.text(); // 先讀取純文本
   //console.log("後端回應的原始資料:", textResponse); // 確認是否含有 HTML
 
@@ -133,7 +133,7 @@ const AddAnnouncement = async () => {
     const result = await response.json();
     if (result.status === "success") {
       alert("公告新增成功！");
-      window.location.href = "/UserProfile"; // 或導回公告列表頁
+      window.location.href = "/AnnouncementList"; // 導回公告列表頁
     } else {
       alert("公告新增失敗：" + result.message);
     }

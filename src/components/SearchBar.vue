@@ -28,7 +28,7 @@
 
       <div class="exam-and-keyword">
         <div class="exam-options">
-          筆試
+          
           <label
             class="custom-checkbox"
             :class="{
@@ -36,8 +36,8 @@
               crossed: examStates.written === 'no',
             }"
             @click="toggleState('written')"
-          ></label>
-          口試
+          ></label>筆試
+          
           <label
             class="custom-checkbox"
             :class="{
@@ -45,8 +45,8 @@
               crossed: examStates.oral === 'no',
             }"
             @click="toggleState('oral')"
-          ></label>
-          資料審查
+          ></label>口試
+          
           <label
             class="custom-checkbox"
             :class="{
@@ -54,7 +54,7 @@
               crossed: examStates.review === 'no',
             }"
             @click="toggleState('review')"
-          ></label>
+          ></label>資料審查
         </div>
 
         <input
@@ -391,7 +391,8 @@ export default {
   transition: all 0.2s;
   cursor: pointer;
   margin-top: 2px;
-  margin-left: -5px;
+  margin-left: 15px;
+  margin-right: -6px;
 }
 
 /* ✔ */
