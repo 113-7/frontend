@@ -52,7 +52,11 @@
                 申請
               </router-link>
             </li>
-
+            <li class="nav-item">
+              <router-link to="/StudentForum" @click="closeNavbar" class="nav-link">
+                討論區
+              </router-link>
+            </li>
             <li class="nav-item">
               <router-link to="/QandA" @click="closeNavbar" class="nav-link">
                 Q&A
