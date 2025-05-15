@@ -1,4 +1,5 @@
 <template>
+
   <div v-if="isLogin">
     <div v-if="session.role === 'student'">
       <h2 class="section-title" style="position: absolute; top: 150px">
@@ -50,32 +51,7 @@
         </div>
       </section>
 
-      <div class="container">
-    <h2 class="text-center my-4"><b>114轉系申請時間線</b></h2>
-    <ul class="timeline">
-      <li class="timeline-item" data-date="2025-03-24">
-        <div class="date">申請開始</div>
-        <p>3月24日 8:00 開始</p>
-      </li>
-      <li class="timeline-item" data-date="2025-03-26">
-        <div class="date">申請結束</div>
-        <p>3月26日 22:00 結束</p>
-      </li>
-      <li class="timeline-item" data-date="2025-03-27">
-        <div class="date">筆試/面試開始</div>
-        <p>4月 請參閱各系公告和通知</p>
-      </li>
-      <li class="timeline-item" data-date="2025-04-30">
-        <div class="date">筆試/面試結束</div>
-        <p>4月 請參閱各系公告和通知</p>
-      </li>
-      <li class="timeline-item" data-date="2025-05-12">
-        <div class="date">公告名單</div>
-        <p>5月12日 公告結果</p>
-      </li>
-    </ul>
-  </div>
-
+     
       <h2 class="section-title">申請轉系</h2>
       <hr class="custom-hr2" />
       <div class="container mt-4">
@@ -87,7 +63,82 @@
           </div>
         </div>
       </div>
+
+
+      <h2 class="section-title">我的最愛</h2>
+<hr class="custom-hr2" />
+<div class="container mt-4">
+  <div class="row">
+    
+    
+
+  <div class="col-lg-12" v-if="favoriteDepartments.length > 0">
+  <div
+    class="custom-fav-box"
+    v-for="dept in favoriteDepartments"
+    :key="dept.department_id"
+  >
+    ❤️
+    <router-link :to="'/DeptDetail/' + dept.department_id">
+      {{ dept.name }}（{{ dept.faculty }}）
+    </router-link>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="col-lg-12" v-else>
+      <div class="alert alert-warning" role="alert">
+        <strong>目前尚未收藏任何學系</strong>
+      </div>
     </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
     <div v-else>
       <h2 class="section-title" style="position: absolute; top: 150px">
         學系管理員資訊
@@ -307,6 +358,53 @@ watch(
     getDepartmentData();
   }
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const favoriteDepartments = ref([]);
+
+// ⚙️ 載入所有收藏學系詳細資料
+const loadFavorites = async () => {
+  const favoriteIds = JSON.parse(localStorage.getItem("favorites") || "[]");
+  const promises = favoriteIds.map((id) =>
+    fetch(`/api/SA/department_detail.php?id=${id}`).then((res) =>
+      res.ok ? res.json() : null
+    )
+  );
+  const results = await Promise.all(promises);
+   favoriteDepartments.value = results
+    .map((item) => (Array.isArray(item) ? item[0] : null))
+    .filter((item) => item);
+};
+
+onMounted(() => {
+  updateUserData();
+  getDepartmentData();
+  loadFavorites(); // ✅ 加這行
+});
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 
@@ -333,4 +431,44 @@ watch(
   margin-left: auto;
   margin-right: auto;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+li a {
+  text-decoration: none;
+  color: #007bff;
+}
+li a:hover {
+  text-decoration: underline;
+}
+
+
+.custom-fav-box {
+  background-color:rgb(255, 219, 219);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solidrgb(235, 190, 190);
+}
+
+::v-deep(.custom-fav-box a) {
+  color: #000 ;
+}
+
+
+
 </style>

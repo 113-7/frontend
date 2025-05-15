@@ -87,14 +87,14 @@
           <table style="width: 100%; border-collapse: collapse">
             <thead>
               <tr>
-                <th style="width: 8%">學院</th>
-                <th style="width: 10%">學系</th>
+                <th style="width: 10%">學院</th>
+                <th style="width: 16%">學系</th>
                 <th style="width: 8%">二年級名額</th>
                 <th style="width: 8%">三年級名額</th>
                 <th style="width: 8%">四年級名額</th>
-                <th style="width: 8%">筆試</th>
-                <th style="width: 8%">口試</th>
-                <th style="width: 10%">資料審查</th>
+                <th style="width: 6%">筆試</th>
+                <th style="width: 6%">口試</th>
+                <th style="width: 6%">資料審查</th>
                 <th style="width: 32%">備註</th>
               </tr>
             </thead>
@@ -107,7 +107,10 @@
               >
                 <td>{{ dept.faculty }}</td>
                 <td>
-                  <b>{{ dept.name }}</b>
+                  <b>
+                  <span v-if="favorites.includes(dept.department_id.toString())">❤️</span>
+                  {{ dept.name }}
+                  </b>
                 </td>
                 <td>{{ dept.second_year_quota }}人</td>
                 <td>{{ dept.third_year_quota }}人</td>
@@ -166,6 +169,7 @@ export default {
       keyword: "",
       filtered: [],
       hasSearched: false,
+      favorites: [],
       examStates: {
         written: "none", // 'none' | 'yes' | 'no'
         oral: "none",
@@ -183,6 +187,12 @@ export default {
       return this.departments.filter((d) => d.faculty === this.selectedCollege);
     },
   },
+
+
+  mounted() {
+    this.favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  },
+
 
   methods: {
     toggleState(type) {
@@ -412,4 +422,21 @@ export default {
 .custom-checkbox.crossed::before {
   content: "×";
 }
+
+
+
+
+
+
+td b {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+td b span {
+  font-size: 16px;
+  color: red;
+}
+
 </style>

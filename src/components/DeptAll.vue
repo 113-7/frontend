@@ -28,8 +28,9 @@
               v-for="departments in getDepartmentsByCollege('文學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id">
+              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
+                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
               </router-link>
             </a>
           </div>
@@ -43,8 +44,9 @@
               v-for="departments in getDepartmentsByCollege('藝術學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id">
+              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
+                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
               </router-link>
             </a>
           </div>
@@ -58,8 +60,9 @@
               v-for="departments in getDepartmentsByCollege('傳播學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id">
+              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
+                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
               </router-link>
             </a>
           </div>
@@ -74,8 +77,9 @@
               v-for="departments in getDepartmentsByCollege('醫學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id">
+              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
+                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
               </router-link>
             </a>
           </div>
@@ -89,8 +93,9 @@
               v-for="departments in getDepartmentsByCollege('理工學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id">
+              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
+                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
               </router-link>
             </a>
           </div>
@@ -104,8 +109,9 @@
               v-for="departments in getDepartmentsByCollege('外國語文學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id">
+              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
+                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
               </router-link>
             </a>
           </div>
@@ -119,8 +125,9 @@
               v-for="departments in getDepartmentsByCollege('民生學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id">
+              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
+                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
               </router-link>
             </a>
           </div>
@@ -134,8 +141,9 @@
               v-for="departments in getDepartmentsByCollege('法律學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id">
+              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
+                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
               </router-link>
             </a>
           </div>
@@ -149,8 +157,9 @@
               v-for="departments in getDepartmentsByCollege('社會科學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id">
+              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
+                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
               </router-link>
             </a>
           </div>
@@ -164,8 +173,9 @@
               v-for="departments in getDepartmentsByCollege('管理學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id">
+              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
+                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
               </router-link>
             </a>
           </div>
@@ -179,8 +189,9 @@
               v-for="departments in getDepartmentsByCollege('織品服裝學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id">
+              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
+                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
               </router-link>
             </a>
           </div>
@@ -223,9 +234,9 @@ export default {
       grade: "",
       test: "",
       keyword: "",
-
       departments: [],
       searchResults: [],
+      favorites: [], 
     };
   },
   mounted() {
@@ -236,6 +247,8 @@ export default {
     require("../assets/js/accordions.js");
 
     this.scrollToSection();
+
+    this.favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
     fetch("http://localhost/SA/department_all.php")
       .then((response) => response.json())
@@ -331,4 +344,23 @@ onMounted(() => {
   gap: 20px;
   justify-content: center;
 }
+
+
+
+
+
+
+.dept-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.heart {
+  font-size: 16px;
+  color: red;
+}
+
 </style>
