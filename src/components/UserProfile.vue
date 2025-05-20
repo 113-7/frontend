@@ -53,37 +53,132 @@
 
      
       <h2 class="section-title">申請轉系</h2>
-      <hr class="custom-hr2" />
-      <div class="container mt-4">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="alert alert-info" role="alert">
-              <strong>暫無申請學系</strong>
-            </div>
+        <hr class="custom-hr2" />
+          <div class="container mt-4">
+            <div class="row">
+            <div class="col-lg-12">
+          <div class="alert alert-info" role="alert">
+          <strong>暫無申請學系</strong>
           </div>
-        </div>
+
+      <!-- 表格區域，加上 radius -->
+      <div class="table-responsive mt-4" style="border-radius: 12px;">
+        <table class="table apply-table">
+          <thead>
+            <tr>
+              <th>學院</th>
+              <th>學系</th>
+              <th>申請截止日</th>
+              <th>審查方式</th>
+              <th>備註</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td>藝術學院</td>
+                <td>音樂學系</td>
+                <td>5/31</td>
+                <td>筆試：有、口試：有、書審：無</td>
+                <td><span class="text-truncate">1.限主修鋼琴、聲樂、弦樂、管樂…</span></td>
+            </tr>
+            <tr>
+                <td>文學院</td>
+                <td>中國文學系</td>
+                <td>5/31</td>
+                <td>筆試：無、口試：有、書審：有</td>
+                <td><span class="text-truncate">1.學業成績總平均60分以上。2.…</span></td>
+            </tr>
+            <tr>
+              <td>文學院</td>
+              <td>歷史學系</td>
+              <td>5/31</td>
+              <td>筆試：無、口試：有、書審：無</td>
+              <td><span class="text-truncate">1.須附自傳(含申請動機)。2.口試…</span></td>
+              </tr>
+            </tbody>
+
+        </table>
       </div>
+    </div>
+  </div>
+</div>
 
 
-      <h2 class="section-title">我的最愛</h2>
+      <h2 class="section-title mt-5">我的最愛</h2>
 <hr class="custom-hr2" />
 <div class="container mt-4">
   <div class="row">
     
     
 
-  <div class="col-lg-12" v-if="favoriteDepartments.length > 0">
-  <div
-    class="custom-fav-box"
-    v-for="dept in favoriteDepartments"
-    :key="dept.department_id"
-  >
-    ❤️
-    <router-link :to="'/DeptDetail/' + dept.department_id">
-      {{ dept.name }}（{{ dept.faculty }}）
-    </router-link>
+    <div class="col-lg-12" v-if="favoriteDepartments.length > 0">
+      <div class="table-responsive mt-4" style="border-radius: 12px; overflow: hidden;">
+        <table class="table my-fav-table table-hover align-middle">
+        <thead >
+        <tr>
+          <th>學院</th>
+          <th>學系</th>
+          <th>二年級名額</th>
+          <th>三年級名額</th>
+          <th>四年級名額</th>
+          <th>筆試</th>
+          <th>口試</th>
+          <th>資料審查</th>
+          <th>備註</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>藝術學院</td>
+          <td>音樂學系</td>
+          <td>2人</td>
+          <td>1人</td>
+          <td>0人</td>
+          <td>有</td>
+          <td>有</td>
+          <td>無</td>
+          <td style="text-align: left">
+      <span class="d-inline-block text-truncate" style="max-width: 240px;">
+        1.限主修鋼琴、聲樂、弦樂、管樂…
+      </span>
+    </td>
+  </tr>
+  <tr>
+    <td>文學院</td>
+    <td>中國文學系</td>
+    <td>3人</td>
+    <td>2人</td>
+    <td>0人</td>
+    <td>無</td>
+    <td>有</td>
+    <td>有</td>
+    <td style="text-align: left">
+      <span class="d-inline-block text-truncate" style="max-width: 240px;">
+        1.學業成績總平均60分以上。2.…  
+      </span>
+    </td>
+  </tr>
+  <tr>
+    <td>文學院</td>
+    <td>歷史學系</td>
+    <td>1人</td>
+    <td>1人</td>
+    <td>1人</td>
+    <td>無</td>
+    <td>有</td>
+    <td>無</td>
+    <td style="text-align: left">
+      <span class="d-inline-block text-truncate" style="max-width: 240px;">
+        1.須附自傳(含申請動機)。2.口試…
+      </span>
+    </td>
+  </tr>
+</tbody>
+
+    </table>
   </div>
 </div>
+
 
 
 
@@ -100,37 +195,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -440,16 +504,6 @@ onMounted(() => {
 
 
 
-
-
-
-
-
-
-
-
-
-
 li a {
   text-decoration: none;
   color: #007bff;
@@ -469,6 +523,171 @@ li a:hover {
 
 ::v-deep(.custom-fav-box a) {
   color: #000 ;
+}
+
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+
+
+/* 我的最愛 */
+.my-fav-table {
+  border: 1px solid #ffeaea;
+  border-radius: 12px;
+  background-color:rgb(255, 255, 255);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-size: 15px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.my-fav-table thead {
+  background-color:rgb(255, 241, 241);
+  color:rgb(102, 12, 12);
+}
+
+
+.my-fav-table thead th {
+  padding: 14px 12px;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 1px solid #f3d6d6;
+}
+
+.my-fav-table thead th:first-child {
+  border-top-left-radius: 12px;
+}
+.my-fav-table thead th:last-child {
+  border-top-right-radius: 12px;
+}
+
+.my-fav-table th,
+.my-fav-table td {
+  padding: 10px px8;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 1.5;
+  font-size: 15px;
+  color: #333;
+  border-top: 1px solid #f3d6d6; /* 與申請表格一致對應的邊線粗細 */
+}
+
+.my-fav-table tbody tr:nth-child(even) td {
+  background-color:rgb(255, 241, 241);
+}
+
+.my-fav-table tbody tr:hover td {
+  background-color:rgb(251, 233, 233);
+  transition: background-color 0.2s ease;
+}
+
+.my-fav-table tbody tr:first-child td:first-child {
+  border-top-left-radius: 12px;
+}
+.my-fav-table tbody tr:first-child td:last-child {
+  border-top-right-radius: 12px;
+}
+.my-fav-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+.my-fav-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+.my-fav-table .text-truncate {
+  display: block;
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+
+
+
+/* 申請 */
+.apply-table {
+  border: 1px solid #d5e7f8;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-size: 15px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* 表頭 */
+.apply-table thead {
+  background-color: #eef5fb;
+  color: #0c3b66;
+}
+
+.apply-table thead th {
+  padding: 14px 12px;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 1px solid #d5e7f8;
+}
+
+/* 表頭左右圓角 */
+.apply-table thead th:first-child {
+  border-top-left-radius: 12px;
+}
+.apply-table thead th:last-child {
+  border-top-right-radius: 12px;
+}
+
+/* 表格內容 */
+.apply-table td {
+  padding: 12px 14px;
+  vertical-align: middle; 
+  line-height: 1.5;  
+  font-size: 15px;
+  color: #333;
+  border-top: 1px solid #eef3f8;
+}
+
+/* 偶數列淡底 */
+.apply-table tbody tr:nth-child(even) td {
+  background-color: #f7fbff;
+}
+
+/* hover 效果：柔和藍底，不破壞圓角 */
+.apply-table tbody tr:hover td {
+  background-color: #eaf4ff;
+  transition: background-color 0.2s ease;
+}
+
+
+.apply-table tbody tr:first-child td:first-child {
+  border-top-left-radius: 12px;
+}
+.apply-table tbody tr:first-child td:last-child {
+  border-top-right-radius: 12px;
+}
+.apply-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+.apply-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+/* 備註文字過長時截斷 */
+.apply-table .text-truncate {
+  display: block;
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
