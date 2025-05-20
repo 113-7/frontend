@@ -124,7 +124,6 @@
               <table class="table my-fav-table table-hover align-middle">
                 <thead>
                   <tr>
-                    <th>最愛</th>
                     <th>學院</th>
                     <th>學系</th>
                     <th>二年級名額</th>
@@ -134,30 +133,41 @@
                     <th>口試</th>
                     <th>資料審查</th>
                     <th>簡述</th>
+                    <th>點擊取消最愛</th>
                   </tr>
                 </thead>
-                
+
                 <tbody>
-                  <tr v-for="(favorite, index) in favoriteDepartments" :key="index">
-                    <td></td>
-                    <td>{{favorite.faculty}}</td>
-                    <td>{{favorite.name}}</td>
-                    <td>{{favorite.second_year_quota}}人</td>
-                    <td>{{favorite.third_year_quota}}人</td>
-                    <td>{{favorite.fourth_year_quota}}人</td>
-                    <td>{{favorite.written_exam_weight}}%</td>
-                    <td>{{favorite.interview_weight}}%</td>
-                    <td>{{favorite.review_weight}}%</td>
+                  <tr
+                    @click="goToDetail(favorite.department_id)"
+                    v-for="(favorite, index) in favoriteDepartments"
+                    :key="index"
+                  >
+                    <td>{{ favorite.faculty }}</td>
+                    <td>{{ favorite.name }}</td>
+                    <td>{{ favorite.second_year_quota }}人</td>
+                    <td>{{ favorite.third_year_quota }}人</td>
+                    <td>{{ favorite.fourth_year_quota }}人</td>
+                    <td>{{ favorite.written_exam_weight }}%</td>
+                    <td>{{ favorite.interview_weight }}%</td>
+                    <td>{{ favorite.review_weight }}%</td>
                     <td style="text-align: left">
                       <span
                         class="d-inline-block text-truncate"
                         style="max-width: 240px"
                       >
-                        {{favorite.brief_description}}
+                        {{ favorite.brief_description }}
                       </span>
                     </td>
+                    <td>
+                      <button
+                        class="favorite-btn"
+                        @click.stop="removeFavorite(favorite.department_id)"
+                      >
+                        <span>❤️</span>
+                      </button>
+                    </td>
                   </tr>
-                  
                 </tbody>
               </table>
             </div>
@@ -380,6 +390,15 @@ const getDepartmentData = async () => {
   }
 };
 
+//下面這兩行要在setup寫才能使用router
+//searchbar裡面不是使用setup所以才沒使用
+import { useRouter } from "vue-router";
+const router = useRouter();
+const goToDetail = async (departmentId) => {
+  //非setup寫法 this.$router.push(`/DeptDetail/${departmentId}`);
+  router.push(`/DeptDetail/${departmentId}`);
+};
+
 onMounted(() => {
   console.log("Session 值:", session.value);
   updateUserData();
@@ -409,6 +428,33 @@ const loadFavorites = async () => {
     console.log("收藏學系資料:", favoriteDepartments.value);
   } catch (error) {
     console.error("fetch 發生錯誤:", error);
+  }
+};
+//點擊紅心可以刪除收藏
+const removeFavorite = async (departmentId) => {
+  try {
+    const formData = new FormData();
+    formData.append("department_id", departmentId);
+
+    const response = await fetch("/api/SA/remove_favorite.php", {
+      method: "POST",
+      body: formData,
+      credentials: "include",
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      console.log("取消收藏成功", result.message);
+    } else {
+      console.warn("取消收藏失敗", result.message); // 顯示明確錯誤
+    }
+
+    // 從前端移除這筆收藏
+    favoriteDepartments.value = favoriteDepartments.value.filter(
+      (dept) => dept.department_id !== departmentId
+    );
+  } catch (error) {
+    console.error("刪除收藏錯誤:", error);
   }
 };
 
@@ -616,5 +662,12 @@ li a:hover {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #ff0000; /* 紅色 */
 }
 </style>
