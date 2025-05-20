@@ -1,5 +1,4 @@
 <template>
-
   <div v-if="isLogin">
     <div v-if="session.role === 'student'">
       <h2 class="section-title" style="position: absolute; top: 150px">
@@ -51,157 +50,127 @@
         </div>
       </section>
 
-     
       <h2 class="section-title">申請轉系</h2>
-        <hr class="custom-hr2" />
-          <div class="container mt-4">
-            <div class="row">
-            <div class="col-lg-12">
-          <div class="alert alert-info" role="alert">
-          <strong>暫無申請學系</strong>
+      <hr class="custom-hr2" />
+      <div class="container mt-4">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="alert alert-info" role="alert">
+              <strong>暫無申請學系</strong>
+            </div>
+
+            <!-- 表格區域，加上 radius -->
+            <div class="table-responsive mt-4" style="border-radius: 12px">
+              <table class="table apply-table">
+                <thead>
+                  <tr>
+                    <th>學院</th>
+                    <th>學系</th>
+                    <th>申請截止日</th>
+                    <th>審查方式</th>
+                    <th>備註</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>藝術學院</td>
+                    <td>音樂學系</td>
+                    <td>5/31</td>
+                    <td>筆試：有、口試：有、書審：無</td>
+                    <td>
+                      <span class="text-truncate"
+                        >1.限主修鋼琴、聲樂、弦樂、管樂…</span
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>文學院</td>
+                    <td>中國文學系</td>
+                    <td>5/31</td>
+                    <td>筆試：無、口試：有、書審：有</td>
+                    <td>
+                      <span class="text-truncate"
+                        >1.學業成績總平均60分以上。2.…</span
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>文學院</td>
+                    <td>歷史學系</td>
+                    <td>5/31</td>
+                    <td>筆試：無、口試：有、書審：無</td>
+                    <td>
+                      <span class="text-truncate"
+                        >1.須附自傳(含申請動機)。2.口試…</span
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-
-      <!-- 表格區域，加上 radius -->
-      <div class="table-responsive mt-4" style="border-radius: 12px;">
-        <table class="table apply-table">
-          <thead>
-            <tr>
-              <th>學院</th>
-              <th>學系</th>
-              <th>申請截止日</th>
-              <th>審查方式</th>
-              <th>備註</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-                <td>藝術學院</td>
-                <td>音樂學系</td>
-                <td>5/31</td>
-                <td>筆試：有、口試：有、書審：無</td>
-                <td><span class="text-truncate">1.限主修鋼琴、聲樂、弦樂、管樂…</span></td>
-            </tr>
-            <tr>
-                <td>文學院</td>
-                <td>中國文學系</td>
-                <td>5/31</td>
-                <td>筆試：無、口試：有、書審：有</td>
-                <td><span class="text-truncate">1.學業成績總平均60分以上。2.…</span></td>
-            </tr>
-            <tr>
-              <td>文學院</td>
-              <td>歷史學系</td>
-              <td>5/31</td>
-              <td>筆試：無、口試：有、書審：無</td>
-              <td><span class="text-truncate">1.須附自傳(含申請動機)。2.口試…</span></td>
-              </tr>
-            </tbody>
-
-        </table>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-
 
       <h2 class="section-title mt-5">我的最愛</h2>
-<hr class="custom-hr2" />
-<div class="container mt-4">
-  <div class="row">
-    
-    
+      <hr class="custom-hr2" />
+      <div class="container mt-4">
+        <div class="row">
+          <div class="col-lg-12" v-if="favoriteDepartments.length > 0">
+            <div
+              class="table-responsive mt-4"
+              style="border-radius: 12px; overflow: hidden"
+            >
+              <table class="table my-fav-table table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th>最愛</th>
+                    <th>學院</th>
+                    <th>學系</th>
+                    <th>二年級名額</th>
+                    <th>三年級名額</th>
+                    <th>四年級名額</th>
+                    <th>筆試</th>
+                    <th>口試</th>
+                    <th>資料審查</th>
+                    <th>簡述</th>
+                  </tr>
+                </thead>
+                
+                <tbody>
+                  <tr v-for="(favorite, index) in favoriteDepartments" :key="index">
+                    <td></td>
+                    <td>{{favorite.faculty}}</td>
+                    <td>{{favorite.name}}</td>
+                    <td>{{favorite.second_year_quota}}人</td>
+                    <td>{{favorite.third_year_quota}}人</td>
+                    <td>{{favorite.fourth_year_quota}}人</td>
+                    <td>{{favorite.written_exam_weight}}%</td>
+                    <td>{{favorite.interview_weight}}%</td>
+                    <td>{{favorite.review_weight}}%</td>
+                    <td style="text-align: left">
+                      <span
+                        class="d-inline-block text-truncate"
+                        style="max-width: 240px"
+                      >
+                        {{favorite.brief_description}}
+                      </span>
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-    <div class="col-lg-12" v-if="favoriteDepartments.length > 0">
-      <div class="table-responsive mt-4" style="border-radius: 12px; overflow: hidden;">
-        <table class="table my-fav-table table-hover align-middle">
-        <thead >
-        <tr>
-          <th>學院</th>
-          <th>學系</th>
-          <th>二年級名額</th>
-          <th>三年級名額</th>
-          <th>四年級名額</th>
-          <th>筆試</th>
-          <th>口試</th>
-          <th>資料審查</th>
-          <th>備註</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>藝術學院</td>
-          <td>音樂學系</td>
-          <td>2人</td>
-          <td>1人</td>
-          <td>0人</td>
-          <td>有</td>
-          <td>有</td>
-          <td>無</td>
-          <td style="text-align: left">
-      <span class="d-inline-block text-truncate" style="max-width: 240px;">
-        1.限主修鋼琴、聲樂、弦樂、管樂…
-      </span>
-    </td>
-  </tr>
-  <tr>
-    <td>文學院</td>
-    <td>中國文學系</td>
-    <td>3人</td>
-    <td>2人</td>
-    <td>0人</td>
-    <td>無</td>
-    <td>有</td>
-    <td>有</td>
-    <td style="text-align: left">
-      <span class="d-inline-block text-truncate" style="max-width: 240px;">
-        1.學業成績總平均60分以上。2.…  
-      </span>
-    </td>
-  </tr>
-  <tr>
-    <td>文學院</td>
-    <td>歷史學系</td>
-    <td>1人</td>
-    <td>1人</td>
-    <td>1人</td>
-    <td>無</td>
-    <td>有</td>
-    <td>無</td>
-    <td style="text-align: left">
-      <span class="d-inline-block text-truncate" style="max-width: 240px;">
-        1.須附自傳(含申請動機)。2.口試…
-      </span>
-    </td>
-  </tr>
-</tbody>
-
-    </table>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-    <div class="col-lg-12" v-else>
-      <div class="alert alert-warning" role="alert">
-        <strong>目前尚未收藏任何學系</strong>
+          <div class="col-lg-12" v-else>
+            <div class="alert alert-warning" role="alert">
+              <strong>目前尚未收藏任何學系</strong>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-
-
-    </div>
-
-
-
 
     <div v-else>
       <h2 class="section-title" style="position: absolute; top: 150px">
@@ -425,33 +394,22 @@ watch(
   }
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 const favoriteDepartments = ref([]);
 
-// ⚙️ 載入所有收藏學系詳細資料
+// 收藏的前後端接口
 const loadFavorites = async () => {
-  const favoriteIds = JSON.parse(localStorage.getItem("favorites") || "[]");
-  const promises = favoriteIds.map((id) =>
-    fetch(`/api/SA/department_detail.php?id=${id}`).then((res) =>
-      res.ok ? res.json() : null
-    )
-  );
-  const results = await Promise.all(promises);
-   favoriteDepartments.value = results
-    .map((item) => (Array.isArray(item) ? item[0] : null))
-    .filter((item) => item);
+  try {
+    const response = await fetch("/api/SA/get_favorite.php");
+    if (!response.ok) {
+      console.error("取得收藏失敗:", response.status);
+      return;
+    }
+    const data = await response.json();
+    favoriteDepartments.value = data;
+    console.log("收藏學系資料:", favoriteDepartments.value);
+  } catch (error) {
+    console.error("fetch 發生錯誤:", error);
+  }
 };
 
 onMounted(() => {
@@ -459,18 +417,6 @@ onMounted(() => {
   getDepartmentData();
   loadFavorites(); // ✅ 加這行
 });
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 
 
@@ -498,12 +444,6 @@ onMounted(() => {
   margin-right: auto;
 }
 
-
-
-
-
-
-
 li a {
   text-decoration: none;
   color: #007bff;
@@ -512,9 +452,8 @@ li a:hover {
   text-decoration: underline;
 }
 
-
 .custom-fav-box {
-  background-color:rgb(255, 219, 219);
+  background-color: rgb(255, 219, 219);
   padding: 16px;
   border-radius: 8px;
   margin-bottom: 12px;
@@ -522,9 +461,8 @@ li a:hover {
 }
 
 ::v-deep(.custom-fav-box a) {
-  color: #000 ;
+  color: #000;
 }
-
 
 .text-truncate {
   overflow: hidden;
@@ -532,14 +470,11 @@ li a:hover {
   white-space: nowrap;
 }
 
-
-
-
 /* 我的最愛 */
 .my-fav-table {
   border: 1px solid #ffeaea;
   border-radius: 12px;
-  background-color:rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   font-size: 15px;
   width: 100%;
@@ -548,10 +483,9 @@ li a:hover {
 }
 
 .my-fav-table thead {
-  background-color:rgb(255, 241, 241);
-  color:rgb(102, 12, 12);
+  background-color: rgb(255, 241, 241);
+  color: rgb(102, 12, 12);
 }
-
 
 .my-fav-table thead th {
   padding: 14px 12px;
@@ -579,11 +513,11 @@ li a:hover {
 }
 
 .my-fav-table tbody tr:nth-child(even) td {
-  background-color:rgb(255, 241, 241);
+  background-color: rgb(255, 241, 241);
 }
 
 .my-fav-table tbody tr:hover td {
-  background-color:rgb(251, 233, 233);
+  background-color: rgb(251, 233, 233);
   transition: background-color 0.2s ease;
 }
 
@@ -607,11 +541,6 @@ li a:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-
-
-
-
 
 /* 申請 */
 .apply-table {
@@ -649,8 +578,8 @@ li a:hover {
 /* 表格內容 */
 .apply-table td {
   padding: 12px 14px;
-  vertical-align: middle; 
-  line-height: 1.5;  
+  vertical-align: middle;
+  line-height: 1.5;
   font-size: 15px;
   color: #333;
   border-top: 1px solid #eef3f8;
@@ -666,7 +595,6 @@ li a:hover {
   background-color: #eaf4ff;
   transition: background-color 0.2s ease;
 }
-
 
 .apply-table tbody tr:first-child td:first-child {
   border-top-left-radius: 12px;
@@ -689,7 +617,4 @@ li a:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-
-
 </style>
