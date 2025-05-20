@@ -20,13 +20,15 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <h2 style="font-size: 30px; margin-top: -30px;">
+          <h2 style="font-size: 30px; margin-top: -30px">
             <b>{{ detail[0]?.name }}</b>
           </h2>
-           <button class="favorite-btn" @click="toggleFavorite">
-    <span v-if="isFavorited">❤️</span>
-    <span v-else>🤍</span>
-  </button>
+          <div v-if="loggedIn == true">
+            <button class="favorite-btn" @click="toggleFavorite">
+              <span v-if="isFavorited">❤️</span>
+              <span v-else>🤍</span>
+            </button>
+          </div>
 
           <p></p>
         </div>
@@ -169,14 +171,34 @@ export default {
     return {
       detail: {},
       isFavorited: false,
+      loggedIn: false,
     };
   },
   mounted() {
+    this.checkLoginStatus();
     this.fetchDepartmentDetails();
     this.checkIfFavorited();
-
   },
   methods: {
+    async checkLoginStatus() {
+      try {
+        const response = await fetch("http://localhost/SA/loginornot.php", {
+          credentials: "include", // 為了帶上 session cookie到後端?如果沒加這一行後端不會判斷有登入，還有要指定8080
+        });
+        const data = await response.json();
+        if (data.loggedIn) {
+          this.loggedIn = true;
+          this.userRole = data.role;
+          console.log("已登入，角色：", this.userRole);
+        } else {
+          this.loggedIn = false;
+          this.userRole = null;
+          console.log("未登入");
+        }
+      } catch (error) {
+        console.error("取得登入狀態失敗", error);
+      }
+    },
     fetchDepartmentDetails() {
       const id = this.$route.params.id;
       fetch(`http://localhost/SA/department_detail.php?id=${id}`, {
@@ -193,34 +215,79 @@ export default {
         });
     },
 
+    async toggleFavorite() {
+      const departmentId = this.$route.params.id;
 
+      if (this.isFavorited) {
+        // 已收藏 -> 要取消（這部分你說後端也分開，我等等會教）
+        try {
+          const formData = new FormData();
+          formData.append("department_id", departmentId);
 
+          const response = await fetch(
+            "http://localhost/SA/remove_favorite.php",
+            {
+              method: "POST",
+              body: formData,
+              credentials: "include", // 加這行讓 session cookie 傳過去
+            }
+          );
+          const result = await response.json();
+          if (result.success) {
+            this.isFavorited = false;
+            console.log("取消收藏成功", result.message);
+          } else {
+            console.warn("取消收藏失敗", result.message); // 顯示明確錯誤
+          }
+        } catch (error) {
+          console.error("取消收藏失敗", error);
+        }
+      } else {
+        // 尚未收藏 -> 要新增
+        try {
+          const formData = new FormData();
+          formData.append("department_id", departmentId);
+
+          const response = await fetch("http://localhost/SA/add_favorite.php", {
+            method: "POST",
+            body: formData,
+            credentials: "include",
+          });
+
+          const result = await response.json(); // 把回傳的 JSON 取出來
+
+          if (result.success) {
+            this.isFavorited = true;
+            console.log("收藏成功", result.message);
+          } else {
+            console.warn("收藏失敗", result.message); // 顯示明確錯誤
+          }
+        } catch (error) {
+          console.error("收藏失敗（網路錯誤）", error);
+        }
+      }
+    },
 
     checkIfFavorited() {
-  const id = this.$route.params.id;
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-  this.isFavorited = favorites.includes(id);
-},
+      const id = this.$route.params.id;
 
-toggleFavorite() {
-  const id = this.$route.params.id;
-  let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-
-  if (this.isFavorited) {
-    favorites = favorites.filter((favId) => favId !== id);
-  } else {
-    favorites.push(id);
-  }
-
-  localStorage.setItem("favorites", JSON.stringify(favorites));
-  this.isFavorited = !this.isFavorited;
-}
-
-
-
-
-
-
+      fetch(`http://localhost/SA/get_favorite_detail.php?department_id=${id}`, {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            this.isFavorited = data.favorited;
+            console.log("收藏狀態:", this.isFavorited);
+          } else {
+            console.warn("檢查此學系收藏狀態失敗", data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("檢查此學系收藏錯誤", error);
+        });
+    },
   },
 };
 </script>
@@ -245,8 +312,6 @@ toggleFavorite() {
   white-space: pre-line; /* 保留換行符號 */
 }
 
-
-
 .dept-name {
   display: flex;
   align-items: center;
@@ -264,5 +329,4 @@ toggleFavorite() {
 .favorite-btn:hover {
   transform: scale(1.2);
 }
-
 </style>

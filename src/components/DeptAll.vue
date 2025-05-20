@@ -30,7 +30,7 @@
             >
               <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
-                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
+                <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
             </a>
           </div>
@@ -46,7 +46,7 @@
             >
               <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
-                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
+                <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
             </a>
           </div>
@@ -62,7 +62,7 @@
             >
               <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
-                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
+                <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
             </a>
           </div>
@@ -79,7 +79,7 @@
             >
               <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
-                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
+                <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
             </a>
           </div>
@@ -95,7 +95,7 @@
             >
               <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
-                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
+                <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
             </a>
           </div>
@@ -111,7 +111,7 @@
             >
               <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
-                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
+                <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
             </a>
           </div>
@@ -127,7 +127,7 @@
             >
               <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
-                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
+                <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
             </a>
           </div>
@@ -143,7 +143,7 @@
             >
               <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
-                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
+                <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
             </a>
           </div>
@@ -159,7 +159,7 @@
             >
               <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
-                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
+                <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
             </a>
           </div>
@@ -175,7 +175,7 @@
             >
               <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
-                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
+                <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
             </a>
           </div>
@@ -191,7 +191,7 @@
             >
               <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
                 {{ departments.name }}
-                <span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>
+                <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
             </a>
           </div>
