@@ -23,6 +23,11 @@
           <h2 style="font-size: 30px; margin-top: -30px;">
             <b>{{ detail[0]?.name }}</b>
           </h2>
+           <button class="favorite-btn" @click="toggleFavorite">
+    <span v-if="isFavorited">❤️</span>
+    <span v-else>🤍</span>
+  </button>
+
           <p></p>
         </div>
       </div>
@@ -163,10 +168,13 @@ export default {
   data() {
     return {
       detail: {},
+      isFavorited: false,
     };
   },
   mounted() {
     this.fetchDepartmentDetails();
+    this.checkIfFavorited();
+
   },
   methods: {
     fetchDepartmentDetails() {
@@ -184,6 +192,35 @@ export default {
           console.error("Error:", error);
         });
     },
+
+
+
+
+    checkIfFavorited() {
+  const id = this.$route.params.id;
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  this.isFavorited = favorites.includes(id);
+},
+
+toggleFavorite() {
+  const id = this.$route.params.id;
+  let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+  if (this.isFavorited) {
+    favorites = favorites.filter((favId) => favId !== id);
+  } else {
+    favorites.push(id);
+  }
+
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  this.isFavorited = !this.isFavorited;
+}
+
+
+
+
+
+
   },
 };
 </script>
@@ -207,4 +244,25 @@ export default {
 .notes-text {
   white-space: pre-line; /* 保留換行符號 */
 }
+
+
+
+.dept-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.2);
+}
+
 </style>
