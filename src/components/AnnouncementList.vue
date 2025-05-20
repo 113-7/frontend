@@ -102,9 +102,14 @@ export default {
     fetch("/api/SA/announcements.php")
       .then((res) => res.json())
       .then((data) => (this.announcements = data));
-    fetch("/api/SA/departments.php") // 👈 新增這段來取得資料
-      .then((res) => res.json())
-      .then((data) => (this.departments = data));
+    fetch("http://localhost/SA/department_all.php")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("後端資料:", data);
+        this.departments = data; // 確保獲取到正確的資料
+      })
+      .catch((error) => console.error("錯誤:", error));
+    
   },
   methods: {
     formatDate(dateStr) {

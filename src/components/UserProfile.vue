@@ -236,7 +236,9 @@
           <button type="button" class="btn edit-btn">更改本系轉系資訊</button>
         </router-link>
         <router-link to="/NewAnnoun">
-          <button type="button" class="btn edit-btn ml-1">新增本系轉系公告</button>
+          <button type="button" class="btn edit-btn ml-1">
+            新增本系轉系公告
+          </button>
         </router-link>
       </h2>
       <hr class="custom-hr2" />
@@ -370,7 +372,7 @@ const updateUserData = () => {
         ? "乙班"
         : "未知";
     seatNumber.value = userIdString.slice(7, 9);
-    gradeNumber.value = 14-userIdString.slice(1, 3); // 年級
+    gradeNumber.value = 14 - userIdString.slice(1, 3); // 年級
   } else {
     console.log("❌ session 還是空的");
     isLogin.value = false; // 沒資料，標記未登入
