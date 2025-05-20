@@ -50,31 +50,6 @@
         </div>
       </section>
 
-      <div class="container">
-    <h2 class="text-center my-4"><b>114轉系申請時間線</b></h2>
-    <ul class="timeline">
-      <li class="timeline-item" data-date="2025-03-24">
-        <div class="date">申請開始</div>
-        <p>3月24日 8:00 開始</p>
-      </li>
-      <li class="timeline-item" data-date="2025-03-26">
-        <div class="date">申請結束</div>
-        <p>3月26日 22:00 結束</p>
-      </li>
-      <li class="timeline-item" data-date="2025-03-27">
-        <div class="date">筆試/面試開始</div>
-        <p>4月 請參閱各系公告和通知</p>
-      </li>
-      <li class="timeline-item" data-date="2025-04-30">
-        <div class="date">筆試/面試結束</div>
-        <p>4月 請參閱各系公告和通知</p>
-      </li>
-      <li class="timeline-item" data-date="2025-05-12">
-        <div class="date">公告名單</div>
-        <p>5月12日 公告結果</p>
-      </li>
-    </ul>
-  </div>
 
       <h2 class="section-title">申請轉系</h2>
       <hr class="custom-hr2" />
@@ -121,7 +96,9 @@
           <button type="button" class="btn edit-btn">更改本系轉系資訊</button>
         </router-link>
         <router-link to="/NewAnnoun">
-          <button type="button" class="btn edit-btn ml-1">新增本系轉系公告</button>
+          <button type="button" class="btn edit-btn ml-1">
+            新增本系轉系公告
+          </button>
         </router-link>
       </h2>
       <hr class="custom-hr2" />
@@ -255,7 +232,7 @@ const updateUserData = () => {
         ? "乙班"
         : "未知";
     seatNumber.value = userIdString.slice(7, 9);
-    gradeNumber.value = 14-userIdString.slice(1, 3); // 年級
+    gradeNumber.value = 14 - userIdString.slice(1, 3); // 年級
   } else {
     console.log("❌ session 還是空的");
     isLogin.value = false; // 沒資料，標記未登入

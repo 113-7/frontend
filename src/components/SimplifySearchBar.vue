@@ -142,7 +142,9 @@ export default {
       return this.departments.filter((d) => d.faculty === this.selectedCollege);
     },
   },
-
+  mounted() {
+    console.log("收到的 departments:", this.departments);
+  },
   methods: {
     toggleState(type) {
       if (this.examStates[type] === "none") {
