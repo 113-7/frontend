@@ -230,7 +230,7 @@ export default {
           const data = JSON.parse(text); // 嘗試轉換成 JSON
 
           if (data.status === "success") {
-            alert("成功繳交！");
+            alert("成功繳交！"+ (data.message));
             this.showForm = false;
             console.log("成功繳交！", data.message);
           } else {

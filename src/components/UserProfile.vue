@@ -309,7 +309,7 @@
                     <td>{{ item.student_name }}</td>
                     <td>{{ item.student_id }}</td>
                     <td>{{ item.odepartment_name }}</td>
-                    <td>年級</td>
+                    <td>{{ calculateGrade(item.student_id) }}</td>
                     <td>{{ item.application_date }}</td>
                     <td>
                       <a
@@ -378,10 +378,25 @@ const className = ref("未知");
 const seatNumber = ref("未知");
 const gradeNumber = ref("未知"); // 年級
 
+//計算民國幾年(為了之後計算入學年份)(目前只用在學系管理者審核的部分)
+function getCurrentTaiwanYear() {
+  const date = new Date();
+  return date.getFullYear() - 1911;
+}
+function calculateGrade(studentId) {
+  const idStr = String(studentId); // 學號轉成字串
+  const admissionYear = parseInt('1' + idStr.slice(1, 3)); 
+  const currentYear = getCurrentTaiwanYear() // 取得當前民國年份
+  const grade = currentYear - admissionYear;//民國-入學年分
+
+  return grade;
+}
+
+// 取得使用者資料
 const updateUserData = () => {
   if (session?.value) {
     console.log("✅ 取得 session:", session.value);
-    isLogin.value = true; // 有資料，標記登入
+    isLogin.value = true; // 確定有沒有登入
     const userIdString = String(session.value.user_id);
     enrollmentYear.value = `1${userIdString.slice(1, 3)}`;
     className.value =
