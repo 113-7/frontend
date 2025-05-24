@@ -55,55 +55,45 @@
       <div class="container mt-4">
         <div class="row">
           <div class="col-lg-12">
-            <div class="alert alert-info" role="alert">
+            <div
+              v-if="StudentApplyData.length === 0"
+              class="alert alert-info"
+              role="alert"
+            >
               <strong>暫無申請學系</strong>
             </div>
 
-            <!-- 表格區域，加上 radius -->
-            <div class="table-responsive mt-4" style="border-radius: 12px">
+            <div
+              v-else
+              class="table-responsive mt-4"
+              style="border-radius: 12px"
+            >
               <table class="table apply-table">
                 <thead>
                   <tr>
-                    <th>學院</th>
                     <th>學系</th>
-                    <th>申請截止日</th>
-                    <th>審查方式</th>
-                    <th>備註</th>
+                    <th>學院</th>
+                    <th>繳交時間</th>
+                    <th>檔案</th>
+                    <th>進度</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>藝術學院</td>
-                    <td>音樂學系</td>
-                    <td>5/31</td>
-                    <td>筆試：有、口試：有、書審：無</td>
+                  <tr v-for="(item, index) in StudentApplyData" :key="index">
+                    <td>{{ item.department_name }}</td>
+                    <td>{{ item.department_faculty }}</td>
+                    <td>{{ item.application_date }}</td>
                     <td>
-                      <span class="text-truncate"
-                        >1.限主修鋼琴、聲樂、弦樂、管樂…</span
+                      <a
+                        :href="`http://localhost/SA/uploads/${item.application_file}`"
+                        target="_blank"
+                        rel="noopener"
+                        style="text-decoration: underline"
                       >
+                        查看檔案
+                      </a>
                     </td>
-                  </tr>
-                  <tr>
-                    <td>文學院</td>
-                    <td>中國文學系</td>
-                    <td>5/31</td>
-                    <td>筆試：無、口試：有、書審：有</td>
-                    <td>
-                      <span class="text-truncate"
-                        >1.學業成績總平均60分以上。2.…</span
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>文學院</td>
-                    <td>歷史學系</td>
-                    <td>5/31</td>
-                    <td>筆試：無、口試：有、書審：無</td>
-                    <td>
-                      <span class="text-truncate"
-                        >1.須附自傳(含申請動機)。2.口試…</span
-                      >
-                    </td>
+                    <td>{{ item.status }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -143,7 +133,7 @@
                     v-for="(favorite, index) in favoriteDepartments"
                     :key="index"
                   >
-                    <td>{{ favorite.name}}</td>
+                    <td>{{ favorite.name }}</td>
                     <td>{{ favorite.faculty }}</td>
                     <td>{{ favorite.second_year_quota }}人</td>
                     <td>{{ favorite.third_year_quota }}人</td>
@@ -182,6 +172,7 @@
       </div>
     </div>
 
+    <!-- 顯示學系管理員的部分 -->
     <div v-else>
       <h2 class="section-title" style="position: absolute; top: 150px">
         學系管理員資訊
@@ -289,8 +280,56 @@
       <div class="container mt-4">
         <div class="row">
           <div class="col-lg-12">
-            <div class="alert alert-info" role="alert">
+            <div
+              v-if="AdminApplyData.length === 0"
+              class="alert alert-info"
+              role="alert"
+            >
               <strong>暫無收到轉系申請</strong>
+            </div>
+            <div
+              v-else
+              class="table-responsive mt-4"
+              style="border-radius: 12px"
+            >
+              <table class="table apply-table">
+                <thead>
+                  <tr>
+                    <th>姓名</th>
+                    <th>學號</th>
+                    <th>原學系</th>
+                    <th>年級</th>
+                    <th>申請時間</th>
+                    <th>檔案</th>
+                    <th>審核結果</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(item, index) in AdminApplyData" :key="index">
+                    <td>{{ item.student_name }}</td>
+                    <td>{{ item.student_id }}</td>
+                    <td>{{ item.odepartment_name }}</td>
+                    <td>年級</td>
+                    <td>{{ item.application_date }}</td>
+                    <td>
+                      <a
+                        :href="`http://localhost/SA/uploads/${item.application_file}`"
+                        target="_blank"
+                        rel="noopener"
+                        style="text-decoration: underline"
+                      >
+                        查看檔案
+                      </a>
+                    </td>
+                    <select v-model="item.status" @change="updateStatus(item)">
+                      <option value="審核中">審核中</option>
+                      <option value="通過">通過</option>
+                      <option value="備取">備取</option>
+                      <option value="不通過">不通過</option>
+                    </select>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -330,9 +369,10 @@ import { inject, ref, watch, onMounted } from "vue";
 
 const session = inject("session");
 
-const departmentData = ref(null); // 🔥 這個用來存學系資料
+const departmentData = ref(null); // 這個用來存學系資料
 
-const isLogin = ref(false); // 🔥 這個用來控制畫面
+//使用者資料
+const isLogin = ref(false); // 是否登入
 const enrollmentYear = ref("未知");
 const className = ref("未知");
 const seatNumber = ref("未知");
@@ -403,6 +443,9 @@ onMounted(() => {
   console.log("Session 值:", session.value);
   updateUserData();
   getDepartmentData();
+  loadFavorites();
+  getStudentApplyData();
+  getAdminApplyData();
 });
 
 watch(
@@ -412,10 +455,77 @@ watch(
     getDepartmentData();
   }
 );
+//以下是【學生】申請轉系顯示的部分
+const StudentApplyData = ref([]);
+const getStudentApplyData = async () => {
+  try {
+    const response = await fetch("/api/SA/get_student_application.php", {
+      method: "GET",
+      credentials: "include", // 確保帶上 session cookie
+    });
+    if (!response.ok) {
+      console.error("取得申請資料失敗:", response.status);
+      return;
+    }
+    const data = await response.json();
+    StudentApplyData.value = data;
+    console.log("申請資料:", StudentApplyData.value);
+  } catch (error) {
+    console.error("fetch 發生錯誤:", error);
+  }
+};
 
+//以下是【學系管理人員】申請轉系顯示的部分
+const AdminApplyData = ref([]);
+const getAdminApplyData = async () => {
+  try {
+    const response = await fetch("/api/SA/get_department_application.php", {
+      method: "GET",
+      credentials: "include", // 確保帶上 session cookie
+    });
+    if (!response.ok) {
+      console.error("取得申請資料失敗:", response.status);
+      return;
+    }
+    const data = await response.json();
+    AdminApplyData.value = data;
+    console.log("申請資料:", AdminApplyData.value);
+  } catch (error) {
+    console.error("fetch 發生錯誤:", error);
+  }
+};
+//以下是【學系管理人員】更新申請狀態的部分(審核中，通過，不通過，備取)
+const updateStatus = async (item) => {
+  try {
+    const response = await fetch("/api/SA/update_application_status.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        application_id: item.application_id,
+        status: item.status,
+      }),
+    });
+    console.log("即將送出的狀態更新：", {
+      application_id: item.application_id,
+      status: item.status,
+    });
+    const result = await response.json();
+    if (result.status === "success") {
+      alert("審核狀態已更新！");
+    } else {
+      alert("更新失敗：" + JSON.stringify(result));
+    }
+  } catch (error) {
+    console.error("更新發生錯誤", error);
+  }
+};
+
+//以下是【學生】收藏的部分
 const favoriteDepartments = ref([]);
 
-// 收藏的前後端接口
 const loadFavorites = async () => {
   try {
     const response = await fetch("/api/SA/get_favorite.php");
@@ -457,12 +567,6 @@ const removeFavorite = async (departmentId) => {
     console.error("刪除收藏錯誤:", error);
   }
 };
-
-onMounted(() => {
-  updateUserData();
-  getDepartmentData();
-  loadFavorites(); // ✅ 加這行
-});
 </script>
 
 
@@ -625,6 +729,7 @@ li a:hover {
 .apply-table td {
   padding: 12px 14px;
   vertical-align: middle;
+  text-align: center;
   line-height: 1.5;
   font-size: 15px;
   color: #333;
