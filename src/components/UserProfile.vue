@@ -124,8 +124,8 @@
               <table class="table my-fav-table table-hover align-middle">
                 <thead>
                   <tr>
-                    <th>學院</th>
                     <th>學系</th>
+                    <th>學院</th>
                     <th>二年級名額</th>
                     <th>三年級名額</th>
                     <th>四年級名額</th>
@@ -143,8 +143,8 @@
                     v-for="(favorite, index) in favoriteDepartments"
                     :key="index"
                   >
+                    <td>{{ favorite.name}}</td>
                     <td>{{ favorite.faculty }}</td>
-                    <td>{{ favorite.name }}</td>
                     <td>{{ favorite.second_year_quota }}人</td>
                     <td>{{ favorite.third_year_quota }}人</td>
                     <td>{{ favorite.fourth_year_quota }}人</td>

@@ -27,7 +27,7 @@
     <div class="result-list" v-if="announcements.length">
       <section>
         <div class="container mt-4">
-          <h2 class="text-center mb-4 text-primary">公告列表查詢結果</h2>
+          
 
           <div class="table-container">
             <div class="table-responsive">
@@ -96,8 +96,8 @@ export default {
   methods: {
     async fetchAnnouncements() {
       this.hasSearched = true;
-      if (!this.selectedCollege || !this.selectedDept) {
-        alert("學院和學系都要選擇");
+      if (!this.selectedDept) {
+        alert("請選擇學系");
         this.announcements = [];
         return;
       }
