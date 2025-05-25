@@ -15,23 +15,7 @@
   </div>
   <div class="search-panel">
     <div class="search-card">
-      <select v-model="selectedCollege">
-        <option value="">選擇學院</option>
-        <option v-for="college in allColleges" :key="college">
-          {{ college }}
-        </option>
-      </select>
-
-      <select v-model="selectedDept">
-        <option value="">選擇學系</option>
-        <option
-          v-for="dept in departmentsFilteredByCollege"
-          :key="dept.department_id"
-          :value="dept.name"
-        >
-          {{ dept.name }}
-        </option>
-      </select>
+      
       <select v-model="selectedTag">
         <option value="">選擇標籤</option>
         <option v-for="commonTags in commonTags" :key="commonTags">
@@ -62,8 +46,10 @@
               :key="post.id"
               class="post-card"
             >
-              <p class="post-title">{{post.id}}</p>
-              <p class="post-meta">{{ formatDate(post.created_at) }}</p>
+              <p class="post-title">留言{{ post.post_id }}-{{ post.title }}</p>
+              <p class="post-meta">
+                發文者:{{ post.student_id }}-時間:{{ post.created_at }}
+              </p>
               <p class="post-content">{{ post.content }}</p>
               <div class="tag-box">
                 <span v-for="tag in post.tags" :key="tag" class="tag"
@@ -90,9 +76,17 @@
         <div class="forum-right post-form">
           <h3>📝 發表留言</h3>
           <textarea
+            v-model="newPost.title"
+            class="input-area2"
+            placeholder="標題 (必填)"
+            required
+            rows="1"
+          ></textarea>
+          <textarea
             v-model="newPost.content"
             class="input-area"
-            placeholder="分享你的想法... 可使用 #hashtag"
+            placeholder="分享你的想法(必填)... 可使用下方 #hashtag"
+            required
           ></textarea>
           <br />
 
@@ -117,13 +111,14 @@
 export default {
   data() {
     return {
-      selectedCollege: "",
-      selectedDept: "",
+      // 搜尋條件
       selectedTag: "",
       keyword: "",
-      newPost: { content: "" },
+      // 新增留言
+      newPost: { title: "", content: "" },
       selectedTags: [],
       posts: [],
+      //
       commonTags: [
         "資料審查",
         "面試",
@@ -132,6 +127,7 @@ export default {
         "課程",
         "分享",
         "問題",
+        "回答",
         "經驗",
         "建議",
         "心得",
@@ -151,9 +147,6 @@ export default {
       if (!this.selectedCollege) return this.departments;
       return this.departments.filter((d) => d.faculty === this.selectedCollege);
     },
-    popularPosts() {
-      return [...this.posts].slice(0, 3);
-    },
     totalPages() {
       return Math.ceil(this.posts.length / this.pageSize);
     },
@@ -164,8 +157,10 @@ export default {
   },
   mounted() {
     this.loadPosts();
+
     fetch("http://localhost/SA/department_all.php")
       .then((response) => response.json())
+
       .then((data) => {
         console.log("後端資料:", data);
         this.departments = data; // 確保獲取到正確的資料
@@ -174,36 +169,72 @@ export default {
   },
 
   methods: {
-
     formatDate(ts) {
       return new Date(ts).toLocaleString();
     },
+    //抓出所有留言區留言
     loadPosts() {
-      this.posts = Array.from({ length: 25 }, (_, i) => ({
-        id: i + 1,
-        content: `這是第 ${i + 1} 則留言內容 #範例`,
-        created_at: Date.now() - i * 1000000,
-        tags: ["範例"],
-      }));
+      fetch("http://localhost/SA/all_question.php")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("載入留言成功：", data);
+          this.posts = data.map((post) => ({
+            ...post,
+            tags: post.tags ? post.tags.split(",") : [],
+          }));
+        })
+        .catch((err) => {
+          console.error("載入留言錯誤：", err);
+        });
     },
+
+    //用來加入tag到已選擇區，方便後續一起傳給後端
     toggleTag(tag) {
       const idx = this.selectedTags.indexOf(tag);
       if (idx >= 0) this.selectedTags.splice(idx, 1);
       else this.selectedTags.push(tag);
     },
+
+    //新增留言到後端
     submitPost() {
+      const title = this.newPost.title.trim();
       const content = this.newPost.content.trim();
       if (!content) return;
-      const newTags = [...this.selectedTags];
-      this.posts.unshift({
-        id: Date.now(),
-        content,
-        tags: newTags,
-        created_at: Date.now(),
-      });
-      this.newPost.content = "";
-      this.selectedTags = [];
+      const tagsString = this.selectedTags.join(","); // 把陣列轉成字串
+      fetch("http://localhost/SA/add_question.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          title,
+          content,
+          tags: tagsString, // 傳逗號分隔字串
+        }),
+      })
+        .then((res) => {
+          if (!res.ok) {
+            return res.json().then((err) => {
+              throw new Error(err.error || "未知錯誤");
+            });
+          }
+          return res.json();
+        })
+        .then((res) => {
+          alert("發表成功！");
+          console.log("發表成功：");
+          this.loadPosts(); // 重新載入留言
+          this.newPost.content = "";
+          this.newPost.title = "";
+          this.selectedTags = [];
+        })
+        .catch((err) => {
+          alert("❌ 發表失敗：" + err.message);
+          console.error("發表錯誤：", err);
+        });
     },
+
     filterDepartments() {
       // reserved for filtering
     },
@@ -266,6 +297,16 @@ export default {
   color: #999;
   width: 100%;
   height: 100px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+.input-area2 {
+  color: #999;
+  width: 100%;
+  height: 50px;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 8px;

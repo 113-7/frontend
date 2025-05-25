@@ -223,9 +223,7 @@ export default {
             body: formData,
           }
         );
-
         const text = await response.text(); // 拿原始回傳文字
-
         try {
           const data = JSON.parse(text); // 嘗試轉換成 JSON
 

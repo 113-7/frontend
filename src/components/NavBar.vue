@@ -52,7 +52,7 @@
                 申請
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="session && session.role === 'student'">
               <router-link to="/StudentForum" @click="closeNavbar" class="nav-link">
                 討論區
               </router-link>

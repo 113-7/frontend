@@ -112,13 +112,11 @@ export default {
     
   },
   methods: {
+    //把後端created_at時間轉換成年/月/日模式
     formatDate(dateStr) {
       return new Date(dateStr).toLocaleDateString();
     },
-    getExcerpt(text, maxLength) {
-      if (!text) return "";
-      return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
-    },
+
     updateTimelineStatus() {
       const timelineItems = document.querySelectorAll(".timeline-item");
       const currentDate = new Date();
