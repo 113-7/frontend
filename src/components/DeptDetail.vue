@@ -199,6 +199,7 @@ export default {
         console.error("取得登入狀態失敗", error);
       }
     },
+
     fetchDepartmentDetails() {
       const id = this.$route.params.id;
       fetch(`http://localhost/SA/department_detail.php?id=${id}`, {
@@ -217,9 +218,8 @@ export default {
 
     async toggleFavorite() {
       const departmentId = this.$route.params.id;
-
       if (this.isFavorited) {
-        // 已收藏 -> 要取消（這部分你說後端也分開，我等等會教）
+        // 已收藏 -> 要取消（這部分你說後端也分開，我等等會交）
         try {
           const formData = new FormData();
           formData.append("department_id", departmentId);
@@ -253,9 +253,7 @@ export default {
             body: formData,
             credentials: "include",
           });
-
           const result = await response.json(); // 把回傳的 JSON 取出來
-
           if (result.success) {
             this.isFavorited = true;
             console.log("收藏成功", result.message);
@@ -270,7 +268,6 @@ export default {
 
     checkIfFavorited() {
       const id = this.$route.params.id;
-
       fetch(`http://localhost/SA/get_favorite_detail.php?department_id=${id}`, {
         method: "GET",
         credentials: "include",

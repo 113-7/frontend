@@ -15,7 +15,6 @@
   </div>
   <div class="search-panel">
     <div class="search-card">
-      
       <select v-model="selectedTag">
         <option value="">選擇標籤</option>
         <option v-for="commonTags in commonTags" :key="commonTags">
@@ -29,7 +28,8 @@
         placeholder="輸入關鍵字"
         class="search-input"
       />
-      <button class="submit-btn" @click="filterDepartments">搜尋</button>
+      <button class="submit-btn" @click="searchPosts">搜尋</button>
+      <button class="btn btn-danger" @click="clearSearch">清除搜尋</button>
     </div>
   </div>
   <!-- 討論區內容 -->
@@ -114,6 +114,8 @@ export default {
       // 搜尋條件
       selectedTag: "",
       keyword: "",
+      //搜尋結果
+      searchresult:[],
       // 新增留言
       newPost: { title: "", content: "" },
       selectedTags: [],
@@ -135,18 +137,9 @@ export default {
       ],
       currentPage: 1,
       pageSize: 10,
-      departments: [],
     };
   },
   computed: {
-    allColleges() {
-      const set = new Set(this.departments.map((d) => d.faculty));
-      return [...set];
-    },
-    departmentsFilteredByCollege() {
-      if (!this.selectedCollege) return this.departments;
-      return this.departments.filter((d) => d.faculty === this.selectedCollege);
-    },
     totalPages() {
       return Math.ceil(this.posts.length / this.pageSize);
     },
@@ -157,21 +150,9 @@ export default {
   },
   mounted() {
     this.loadPosts();
-
-    fetch("http://localhost/SA/department_all.php")
-      .then((response) => response.json())
-
-      .then((data) => {
-        console.log("後端資料:", data);
-        this.departments = data; // 確保獲取到正確的資料
-      })
-      .catch((error) => console.error("錯誤:", error));
   },
 
   methods: {
-    formatDate(ts) {
-      return new Date(ts).toLocaleString();
-    },
     //抓出所有留言區留言
     loadPosts() {
       fetch("http://localhost/SA/all_question.php")
@@ -190,6 +171,7 @@ export default {
 
     //用來加入tag到已選擇區，方便後續一起傳給後端
     toggleTag(tag) {
+      // 如果已經選擇了這個標籤，就移除它，否則就加入
       const idx = this.selectedTags.indexOf(tag);
       if (idx >= 0) this.selectedTags.splice(idx, 1);
       else this.selectedTags.push(tag);
@@ -234,9 +216,32 @@ export default {
           console.error("發表錯誤：", err);
         });
     },
-
-    filterDepartments() {
-      // reserved for filtering
+    // 搜尋留言
+    searchPosts() {
+      fetch("http://localhost/SA/search_question.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          keyword: this.keyword,
+          tag: this.selectedTag,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("搜尋結果：", data);
+          this.posts = data;
+          this.searchresult = data;
+        })
+        .catch((err) => {
+          console.error("搜尋錯誤：", err);
+        });
+    },
+    clearSearch(){
+      this.loadPosts();
+      this.selectedTag = "";
+      this.keyword = "";
     },
   },
 };

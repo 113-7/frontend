@@ -28,7 +28,10 @@
               v-for="departments in getDepartmentsByCollege('文學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
+              <router-link
+                :to="'/DeptDetail/' + departments.department_id"
+                class="dept-link"
+              >
                 {{ departments.name }}
                 <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
@@ -44,7 +47,10 @@
               v-for="departments in getDepartmentsByCollege('藝術學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
+              <router-link
+                :to="'/DeptDetail/' + departments.department_id"
+                class="dept-link"
+              >
                 {{ departments.name }}
                 <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
@@ -60,7 +66,10 @@
               v-for="departments in getDepartmentsByCollege('傳播學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
+              <router-link
+                :to="'/DeptDetail/' + departments.department_id"
+                class="dept-link"
+              >
                 {{ departments.name }}
                 <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
@@ -77,7 +86,10 @@
               v-for="departments in getDepartmentsByCollege('醫學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
+              <router-link
+                :to="'/DeptDetail/' + departments.department_id"
+                class="dept-link"
+              >
                 {{ departments.name }}
                 <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
@@ -93,7 +105,10 @@
               v-for="departments in getDepartmentsByCollege('理工學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
+              <router-link
+                :to="'/DeptDetail/' + departments.department_id"
+                class="dept-link"
+              >
                 {{ departments.name }}
                 <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
@@ -109,7 +124,10 @@
               v-for="departments in getDepartmentsByCollege('外國語文學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
+              <router-link
+                :to="'/DeptDetail/' + departments.department_id"
+                class="dept-link"
+              >
                 {{ departments.name }}
                 <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
@@ -125,7 +143,10 @@
               v-for="departments in getDepartmentsByCollege('民生學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
+              <router-link
+                :to="'/DeptDetail/' + departments.department_id"
+                class="dept-link"
+              >
                 {{ departments.name }}
                 <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
@@ -141,7 +162,10 @@
               v-for="departments in getDepartmentsByCollege('法律學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
+              <router-link
+                :to="'/DeptDetail/' + departments.department_id"
+                class="dept-link"
+              >
                 {{ departments.name }}
                 <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
@@ -157,7 +181,10 @@
               v-for="departments in getDepartmentsByCollege('社會科學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
+              <router-link
+                :to="'/DeptDetail/' + departments.department_id"
+                class="dept-link"
+              >
                 {{ departments.name }}
                 <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
@@ -173,7 +200,10 @@
               v-for="departments in getDepartmentsByCollege('管理學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
+              <router-link
+                :to="'/DeptDetail/' + departments.department_id"
+                class="dept-link"
+              >
                 {{ departments.name }}
                 <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
@@ -189,7 +219,10 @@
               v-for="departments in getDepartmentsByCollege('織品服裝學院')"
               :key="departments.id"
             >
-              <router-link :to="'/DeptDetail/' + departments.department_id" class="dept-link">
+              <router-link
+                :to="'/DeptDetail/' + departments.department_id"
+                class="dept-link"
+              >
                 {{ departments.name }}
                 <!--<span v-if="favorites.includes(departments.department_id.toString())" class="heart">❤️</span>-->
               </router-link>
@@ -220,13 +253,11 @@
 import "../assets/css/fontawesome.css";
 import "../assets/css/templatemo-stand-blog.css";
 import "../assets/css/owl.css";
-import SearchBar from '../components/SearchBar.vue'
-
-
+import SearchBar from "../components/SearchBar.vue";
 
 export default {
   components: {
-    SearchBar // ✅ 把搜尋欄元件加進來
+    SearchBar, //把搜尋欄元件加進來
   },
   data() {
     return {
@@ -236,7 +267,7 @@ export default {
       keyword: "",
       departments: [],
       searchResults: [],
-      favorites: [], 
+      favorites: [],
     };
   },
   mounted() {
@@ -246,83 +277,47 @@ export default {
     require("../assets/js/isotope.js");
     require("../assets/js/accordions.js");
 
-    this.scrollToSection();
-
-    this.favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    //這個功能先拿掉了
+    //this.favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
     fetch("http://localhost/SA/department_all.php")
       .then((response) => response.json())
       .then((data) => {
         console.log("後端資料:", data);
-        this.departments = data; // 確保獲取到正確的資料
+        // 確保獲取到正確的資料
+        this.departments = data; 
       })
       .catch((error) => console.error("錯誤:", error));
   },
-  watch: {
-    "$route.query.scrollTo": function () {
-      this.scrollToSection();
-    },
-  },
+
   methods: {
     // 根據學院名稱過濾學系
     getDepartmentsByCollege(collegeName) {
       return this.departments.filter((d) => d.faculty === collegeName);
     },
-    searchDepartments() {
-      fetch("http://localhost/SA/各學系資料.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          college: this.college,
-          grade: this.grade,
-          test: this.test,
-          keyword: this.keyword,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          this.searchResults = data;
-          console.log("搜尋結果：", data);
-        })
-        .catch((error) => {
-          console.error("錯誤：", error);
-        });
-    },
-    scrollToSection() {
-      const sectionId = this.$route.query.scrollTo;
-      if (sectionId) {
-        this.$nextTick(() => {
-          const element = document.getElementById(sectionId);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth" }); // 平滑滾動
-          }
-        });
-      }
-    },
   },
 };
 </script>
-
 
 <script setup>
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 
+// 使用 Vue Router 的 useRoute 來獲取網址內的學院參數
 const route = useRoute();
 
 onMounted(() => {
-  console.log("🔎 當前 URL 參數：", route.query.scrollTo);
+  console.log("當前 URL 參數：", route.query.scrollTo);
 
-  // 延遲 500ms 確保 DOM 生成完畢
+  // 延遲 0.5秒 確保 DOM 生成完畢
   setTimeout(() => {
     if (route.query.scrollTo) {
+      //抓取html元素的 ID 並滾動到該元素
       const targetElement = document.getElementById(route.query.scrollTo);
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: "smooth" });
       } else {
-        console.warn("⚠️ 找不到 ID：" + route.query.scrollTo);
+        console.warn("找不到 ID：" + route.query.scrollTo);
       }
     }
   }, 500);
@@ -345,11 +340,6 @@ onMounted(() => {
   justify-content: center;
 }
 
-
-
-
-
-
 .dept-link {
   display: inline-flex;
   align-items: center;
@@ -362,5 +352,4 @@ onMounted(() => {
   font-size: 16px;
   color: red;
 }
-
 </style>

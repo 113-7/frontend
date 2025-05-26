@@ -245,7 +245,9 @@
 </template>
 
 <script>
-//為了匯入模板做的努力
+//這些是為了匯入模板做的努力
+//後來也有放在index.html裡，但保險起見還是不要亂動，維持這樣
+//包含import和require的部分
 import "../assets/css/fontawesome.css";
 import "../assets/css/templatemo-stand-blog.css";
 import "../assets/css/owl.css";
@@ -255,9 +257,6 @@ import "../vendor/bootstrap/css/bootstrap.min.css";
 
 export default {
   name: "HelloWorld",
-  props: {
-    msg: String,
-  },
   mounted() {
     // 在 mounted 鉤子中引入 JS
     require("../assets/js/custom.js");
@@ -266,14 +265,15 @@ export default {
     require("../assets/js/isotope.js");
     require("../assets/js/accordions.js");
 
-    //解決每次換頁，下面的三個格子就跑掉的問題
+    //解決每次換頁，主頁下面的三個格子就跑掉的問題
+    //選取class=owl-carousel的HTML，並啟動owlCarousel套件來變成輪播效果
     this.$nextTick(() => {
       $(".owl-carousel").owlCarousel({
         items: 3,
         loop: true,
         autoplay: true,
         autoplayTimeout: 5000,
-        autoplayHoverPause: true,
+        autoplayHoverPause: true,// 滑鼠移上去會暫停播放
       });
     });
   },

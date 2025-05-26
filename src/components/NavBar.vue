@@ -131,6 +131,8 @@ const handleLogout = async () => {
   await logout();
   closeNavbar();
 };
+
+// 點擊頁面外部時關閉選單
 const handleOutsideClick = (event) => {
   const navbar = document.getElementById("navbarResponsive");
   const toggler = document.querySelector(".navbar-toggler");
@@ -143,27 +145,13 @@ const handleOutsideClick = (event) => {
     closeNavbar();
   }
 };
-
+// 在組件掛載時添加事件監聽器
 onMounted(() => {
   document.addEventListener("click", handleOutsideClick);
 });
-
+// 在組件卸載時移除事件監聽器
 onBeforeUnmount(() => {
   document.removeEventListener("click", handleOutsideClick);
 });
 </script>
 
-<style scoped>
-/*.nav {
-  margin-top: -40px;
-}*/
-/*li {
-  display: inline-block;
-}
-.collapse {
-  margin-left: 700px;
-}
-.navbar-brand {
-  margin-left: 50px;
-}*/
-</style>

@@ -62,36 +62,18 @@ export default {
         { q: "Q2：可以從進修部轉到日間部嗎？", a: "根據教育部規定，自 110 學年度起，禁止不同學制間轉系。" },
         { q: "Q3：我是一年級新生，可以申請轉系嗎？", a: "需修讀滿一學年才具轉系資格，特例需經核准。" },
         { q: "Q4：我要準備哪些文件？", a: "轉系申請書、歷年成績單、學系規定資料（如讀書計畫、自傳等）" },
-        { q: "Q5：可以申請轉到幾個學系？", a: "每位學生每學年限申請一個學系。" },
+        { q: "Q5：可以申請轉到幾個學系？", a: "理論上不限次數。" },
         { q: "Q6：成績要多好才可以轉？", a: "看GPA、總平均、排名與面試或筆試成績。" },
         { q: "Q7：申請後怎麼知道有沒有錄取？", a: "教務處於5月中公告轉系結果。" },
         { q: "Q8：轉系會延畢嗎？", a: "視原修課學分與新系課程差異而定。" },
         { q: "Q9：被錄取後可以反悔嗎？", a: "轉系錄取並完成手續即視為成功，不得撤回。" },
         { q: "Q10：我是陸生／僑生／外籍生，可以轉系嗎？", a: "須符合教育部規定並經國際事務處確認。" },
       ],
-      comments: [
-        { id: 1, user: "412691723", date: "2020/5/16", content: "教授不只看成績，也會問轉系原因...", avatar: require('@/assets/images/comment-author-01.jpg') },
-        { id: 2, user: "418463679", date: "2020/5/20", content: "我花了一整個寒假準備資料和面試...", avatar: require('@/assets/images/comment-author-02.jpg') },
-        { id: 3, user: "4124284992", date: "2025/3/28", content: "剛轉系那陣子真的很孤單...", avatar: require('@/assets/images/comment-author-03.jpg') },
-      ],
-      newComment: {
-        user: '',
-        content: '',
-      },
+      
     };
   },
   methods: {
-    submitComment() {
-      if (!this.newComment.user || !this.newComment.content) return;
-      this.comments.push({
-        ...this.newComment,
-        id: Date.now(),
-        date: new Date().toLocaleDateString(),
-        avatar: require('@/assets/images/comment-author-01.jpg')
-      });
-      this.newComment.user = '';
-      this.newComment.content = '';
-    },
+    
   },
 };
 </script>

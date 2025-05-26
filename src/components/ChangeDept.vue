@@ -255,11 +255,13 @@
 import { reactive, inject, ref, watch, onMounted } from "vue";
 import { nextTick } from "vue";
 
-const session = inject("session"); // 從父組件注入 session
+// 從父組件抓 session
+const session = inject("session"); 
 console.log("session:", session);
 
+// 用來查看session，確保這時候 session 已經正確賦值
 nextTick(() => {
-  console.log(session.value); // 確保這時候 session 已經正確賦值
+  console.log(session.value); 
 });
 
 const departmentData = reactive({
@@ -355,7 +357,7 @@ const ChangeDept = async () => {
     });
 
 
-    //這裡以後可以用，可以看後端哪裡有錯誤
+    //這裡以後可以用，可以看後端哪裡有錯誤，不然跑回來都是亂數
     //const textResponse = await response.text(); // 先讀取純文本
     //console.log("後端回應的原始資料:", textResponse); // 確認是否含有 HTML
 
@@ -392,5 +394,6 @@ onMounted(() => {
   getDepartmentData();
 });
 
+//下面這段沒用到可刪?
 let lastDepartmentId = null;
 </script>

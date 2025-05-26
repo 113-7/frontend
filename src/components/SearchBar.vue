@@ -28,7 +28,6 @@
 
       <div class="exam-and-keyword">
         <div class="exam-options">
-          
           <label
             class="custom-checkbox"
             :class="{
@@ -36,8 +35,9 @@
               crossed: examStates.written === 'no',
             }"
             @click="toggleState('written')"
-          ></label>筆試
-          
+          ></label
+          >筆試
+
           <label
             class="custom-checkbox"
             :class="{
@@ -45,8 +45,9 @@
               crossed: examStates.oral === 'no',
             }"
             @click="toggleState('oral')"
-          ></label>口試
-          
+          ></label
+          >口試
+
           <label
             class="custom-checkbox"
             :class="{
@@ -54,7 +55,8 @@
               crossed: examStates.review === 'no',
             }"
             @click="toggleState('review')"
-          ></label>資料審查
+          ></label
+          >資料審查
         </div>
 
         <input
@@ -108,8 +110,7 @@
                 <td>{{ dept.faculty }}</td>
                 <td>
                   <b>
-                  <span v-if="favorites.includes(dept.department_id.toString())">❤️</span>
-                  {{ dept.name }}
+                    {{ dept.name }}
                   </b>
                 </td>
                 <td>{{ dept.second_year_quota }}人</td>
@@ -162,16 +163,18 @@ export default {
   },
   data() {
     return {
+      //傳回後端的資料
       selectedCollege: "",
       selectedGrade: "",
       selectedDept: "",
       selectedExam: [],
       keyword: "",
+      //後端傳回的資料
       filtered: [],
+      //一些vue的狀態
       hasSearched: false,
-      favorites: [],
       examStates: {
-        written: "none", // 'none' | 'yes' | 'no'
+        written: "none", // 'none'or'yes'or'no'
         oral: "none",
         review: "none",
       },
@@ -187,12 +190,6 @@ export default {
       return this.departments.filter((d) => d.faculty === this.selectedCollege);
     },
   },
-
-
-  mounted() {
-    this.favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-  },
-
 
   methods: {
     toggleState(type) {
@@ -423,11 +420,6 @@ export default {
   content: "×";
 }
 
-
-
-
-
-
 td b {
   display: flex;
   align-items: center;
@@ -438,5 +430,4 @@ td b span {
   font-size: 16px;
   color: red;
 }
-
 </style>

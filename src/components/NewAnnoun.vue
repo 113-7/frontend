@@ -83,35 +83,25 @@ const session = inject("session");
 
 const announcement = ref({
   department_id: '',
-  date: '',
   title: '',
   content: ''
 });
 
-watch(
-  () => session.value,
-  () => {
-    AddAnnouncement();
-  }
-);
+//這段很怪，先刪掉，重整之後依舊會取得不了session資料
+// watch(
+//   () => session.value,
+//   () => {
+//     AddAnnouncement();
+//   }
+// );
 
-const formatDate = (date) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份需要加1，並補零
-  const day = String(date.getDate()).padStart(2, '0'); // 補零
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
-  
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-};
+
 
 // 自動取得部門與日期
 onMounted(() => {
     console.log("session.value", session.value);
   if (session.value) {
     announcement.value.department_id = session.value.department_id;
-    announcement.value.date = formatDate(new Date());
   } else {
     alert("尚未登入或無法取得學系 ID");
   }

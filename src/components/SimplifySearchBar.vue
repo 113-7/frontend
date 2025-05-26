@@ -27,8 +27,6 @@
     <div class="result-list" v-if="announcements.length">
       <section>
         <div class="container mt-4">
-          
-
           <div class="table-container">
             <div class="table-responsive">
               <table class="table">
@@ -104,9 +102,7 @@ export default {
 
       try {
         const response = await fetch(
-          `http://localhost/SA/announcements.php?department=${encodeURIComponent(
-            this.selectedDept
-          )}`
+          `http://localhost/SA/announcements.php?department=${this.selectedDept}`
         );
         if (!response.ok) throw new Error("伺服器錯誤");
 
@@ -235,7 +231,7 @@ export default {
   right: 0;
   background: white;
   font-size: 14px;
-  color: rgb(236, 150, 12);
+  color: rgb(237, 146, 27);
   cursor: pointer;
   padding-left: 4px;
   font-weight: bold;
@@ -287,7 +283,7 @@ export default {
 }
 
 .table th {
-  background-color: #fd7e14 !important;
+  background-color: rgb(237, 146, 27) !important;
   color: white;
   text-align: center;
 }
@@ -295,7 +291,7 @@ export default {
 .table td,
 .table th {
   vertical-align: middle;
-  border: 1px solid #e3e3e3;
+  border: 1px solid #ffffff;
 }
 
 .table td {
